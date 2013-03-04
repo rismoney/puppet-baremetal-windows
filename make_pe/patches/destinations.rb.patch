@@ -1,0 +1,15 @@
+--- destinations.rb.orig	Thu Mar  7 13:06:48 2013
++++ destinations.rb	Thu Mar  7 13:07:12 2013
+@@ -254,6 +254,6 @@
+-    @eventlog.report_event(
+-      :source      => "Puppet",
+-      :event_type  => native_type,
+-      :event_id    => native_id,
+-      :data        => (msg.source and msg.source != 'Puppet' ? "#{msg.source}: " : '') + msg.to_s
+-    )
++    # @eventlog.report_event(
++      # :source      => "Puppet",
++      # :event_type  => native_type,
++      # :event_id    => native_id,
++      # :data        => (msg.source and msg.source != 'Puppet' ? "#{msg.source}: " : '') + msg.to_s
++    # )
