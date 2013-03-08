@@ -18,4 +18,4 @@ ruby install.rb
 cd \puppet-2.7.x
 ruby install.rb
 
-call X:\custom.cmd
+X:\windows\system32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Unrestricted x:\custom.ps1
