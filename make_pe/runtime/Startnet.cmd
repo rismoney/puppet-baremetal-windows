@@ -18,4 +18,4 @@ ruby install.rb
 cd \puppet-2.7.x
 ruby install.rb
 
-call X:\custom.cmd
+call X:\powershell.exe --local x:\custom.ps1
