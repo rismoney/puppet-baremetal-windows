@@ -36,11 +36,11 @@ function build-wim {
   echo d | xcopy /Y "$config\config.yml" "$mountfolder\devkit"
 
   # patch puppet source to not use eventlog (n/a in WinPE)
-  cmd /c "patch --force -d $mountfolder\puppet-2.7.x\lib\puppet\util\log -p 0 < $patchfolder\destinations.rb.patch"
+  cmd /c "$mountfolder\patch\bin\patch.exe --force -d $mountfolder\puppet-2.7.x\lib\puppet\util\log -p 0 < $patchfolder\destinations.rb.patch"
 
   #win pe startup scripts
   echo d |xcopy /Y "$runtimefolder\startnet.cmd" "$mountfolder\Windows\System32"
-  echo d |xcopy /Y "$runtimefolder\custom.cmd" "$mountfolder"
+  echo d |xcopy /Y "$runtimefolder\custom.ps1" "$mountfolder"
 
   add-packages
   
