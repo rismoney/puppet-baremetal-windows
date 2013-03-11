@@ -21,6 +21,9 @@ $facterfile = "C:\download\1.6.x.zip"
 $puppeturl = "https://github.com/puppetlabs/puppet/archive/2.7.x.zip"
 $puppetfile = "c:\download\2.7.x.zip"
 
+$patchurl = "http://downloads.sourceforge.net/project/gnuwin32/patch/2.5.9-7/patch-2.5.9-7-bin.zip?r=&ts=1362969672&use_mirror=voxel"
+$patchfile = "C:\download\patch-2.5.9-7-bin.zip"
+
 $gemlist = (
   'http://rubygems.org/downloads/sys-admin-1.5.6-x86-mingw32.gem',
   'http://rubygems.org/downloads/win32-api-1.4.8-x86-mingw32.gem',

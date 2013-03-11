@@ -38,13 +38,14 @@ function download-winbits {
   if (-not(test-path -path "$zipfile")) {Get-WebFile $zipurl $zipfile}
   else {write-output "Skipping download $zipfile"}
 
-
   if (-not(test-path -path "$rubyfile")) {Get-WebFile $rubyurl $rubyfile}
   else {write-output "Skipping download $rubyfile"}
 
-  
   if (-not(test-path -path "$devkitfile")) {Get-WebFile $devkit $devkitfile}
   else {write-output "Skipping download $devkitfile"}
+
+  if (-not(test-path -path "$patchfile")) {Get-WebFile $patchurl $patchfile}
+  else {write-output "Skipping download $patchfile"}
 
   if (-not(test-path -path "$facterfile")) {Get-WebFile $facter $facterfile}
   else {write-output "Skipping download $facterfile"}
