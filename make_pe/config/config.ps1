@@ -25,6 +25,7 @@ $patchurl = "http://downloads.sourceforge.net/project/gnuwin32/patch/2.5.9-7/pat
 $patchfile = "C:\download\patch-2.5.9-7-bin.zip"
 
 $gemlist = (
+  #'http://rubygems.org/downloads/bundler-1.3.2.gem',
   'http://rubygems.org/downloads/sys-admin-1.5.6-x86-mingw32.gem',
   'http://rubygems.org/downloads/win32-api-1.4.8-x86-mingw32.gem',
   'http://rubygems.org/downloads/win32-dir-0.3.7.gem',

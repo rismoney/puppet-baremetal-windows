@@ -41,6 +41,7 @@ function build-wim {
   #win pe startup scripts
   echo d |xcopy /Y "$runtimefolder\startnet.cmd" "$mountfolder\Windows\System32"
   echo d |xcopy /Y "$runtimefolder\custom.ps1" "$mountfolder"
+  # echo d |xcopy /Y "$config\GemFile" "$mountfolder"
 
   add-packages
   

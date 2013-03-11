@@ -9,9 +9,9 @@ cd \devkit
 ruby dk.rb install
 
 rem add gems path
-call gem install --local x:\gems\*.gem --no-rdoc --no-ri
-
-
+call gem install --local X:\gems\win32-security-0.1.2.gem --nodoc --nori
+call gem install --local X:\gems\*.gem --no-rdoc --no-ri
+#bundle install --gemfile X:\Gemfile
 
 cd \facter-1.6.x
 ruby install.rb
