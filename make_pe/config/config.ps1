@@ -4,6 +4,8 @@ $winpefolder="C:\WinPE_x86"
 $adkfolder = 'C:\Program Files (x86)\Windows Kits\8.0'
 
 $imagex = "$adkfolder\Assessment and Deployment Kit\Deployment Tools\AMD64\DISM\imagex.exe"
+$dism = "$adkfolder\Assessment and Deployment Kit\Deployment Tools\AMD64\DISM\dism.exe"
+
 $oscdimg = "$adkfolder\Assessment and Deployment Kit\Deployment Tools\x86\Oscdimg\oscdimg.exe"
 
 $zipurl= "http://sourceforge.net/projects/sevenzip/files/7-Zip/9.20/7za920.zip/download?use_mirror=iweb"
