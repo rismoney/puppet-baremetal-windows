@@ -1,0 +1,5 @@
+[facts]
+fact_stomp_port=61613
+fact_is_puppetmaster=false
+fact_is_puppetagent=true
+fact_is_puppetconsole=false
