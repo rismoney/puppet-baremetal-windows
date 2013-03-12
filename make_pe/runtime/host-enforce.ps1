@@ -37,9 +37,9 @@ break;
 }
 
 #config file not gonna work yet so ensure its not present
-$puppetpath='C:\Program Files (x86)\Puppet Labs\Puppet Enterprise\bin'
-$ringologfolder = 'C:\@inf\winbuild\logs\ringo'
-$config='C:\@inf\winbuild\scripts\ringo.conf'
+#$puppetpath='x:\Program Files (x86)\Puppet Labs\Puppet Enterprise\bin'
+$ringologfolder = 'x:\'
+$config='X:\config\ringo.conf'
 $logfile="$ringologfolder\$(Get-Date -Format 'yyyy-MM-dd-HHmmss').txt"
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 
@@ -75,8 +75,8 @@ add-content $logfile $options`n
 add-content $logfile "=========================="
 
 # invoked directly because path problems with spaces... 
-Set-Location $puppetpath
-invoke-expression ".\puppet.bat $options"
+#Set-Location $puppetpath
+invoke-expression "puppet $options"
 set-location $here
 
 $rc=$LASTEXITCODE
