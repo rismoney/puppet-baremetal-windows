@@ -2,6 +2,7 @@ $downloadfolder="C:\download"
 $mountfolder="C:\mount"
 $winpefolder="C:\WinPE_x86"
 $adkfolder = 'C:\Program Files (x86)\Windows Kits\8.0'
+$puppetmaster = 'puppet.inf.ise.com'
 
 $imagex = "$adkfolder\Assessment and Deployment Kit\Deployment Tools\AMD64\DISM\imagex.exe"
 $dism = "$adkfolder\Assessment and Deployment Kit\Deployment Tools\AMD64\DISM\dism.exe"
