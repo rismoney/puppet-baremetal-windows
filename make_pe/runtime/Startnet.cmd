@@ -1,7 +1,7 @@
 wpeinit
 
 rem add ruby to path
-set path=X:\windows\system32;X:\ruby187\bin
+set path=X:\windows\system32;X:\Windows\System32\WindowsPowerShell\v1.0;X:\ruby187\bin;
 
 rem we don't run ruby init because that will wipe config.yml
 cd \devkit
@@ -21,4 +21,4 @@ ruby install.rb
 cd \puppet-2.7.x
 ruby install.rb
 
-X:\windows\system32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Unrestricted x:\custom.ps1
+powershell.exe -ExecutionPolicy Unrestricted x:\custom.ps1
