@@ -1,0 +1,19 @@
+--- security.rb.orig	2013-02-19 15:32:25 -0500
++++ security.rb	2013-03-12 12:08:17 -0400
+@@ -153,11 +153,12 @@
+     root = Pathname.new(path).enum_for(:ascend).to_a.last.to_s
+     # 'A trailing backslash is required'
+     root = "#{root}\\" unless root =~ /[\/\\]$/
+-    unless GetVolumeInformation(root, nil, 0, nil, nil, flags, nil, 0)
+-      raise Puppet::Util::Windows::Error.new("Failed to get volume information")
+-    end
++    #unless GetVolumeInformation(root, nil, 0, nil, nil, flags, nil, 0)
++    #  raise Puppet::Util::Windows::Error.new("Failed to get volume information")
++    #end
+ 
+-    (flags.unpack('L')[0] & Windows::File::FILE_PERSISTENT_ACLS) != 0
++    #(flags.unpack('L')[0] & Windows::File::FILE_PERSISTENT_ACLS) != 0
++    return 1
+   end
+ 
+   def change_sid(old_sid, new_sid, info, path)

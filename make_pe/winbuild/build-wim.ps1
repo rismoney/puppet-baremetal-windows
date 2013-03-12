@@ -37,7 +37,10 @@ function build-wim {
 
   # patch puppet source to not use eventlog (n/a in WinPE)
   cmd /c "$mountfolder\patch\bin\patch.exe --force -d $mountfolder\puppet-2.7.x\lib\puppet\util\log -p 0 < $patchfolder\destinations.rb.patch"
-
+  
+  # patch puppet source to not do volume inspection for ntfs (X:\ is not a traditional volume) so we just say it is
+  cmd /c "$mountfolder\patch\bin\patch.exe --force -d $mountfolder\puppet-2.7.x\lib\puppet\util\windows -p 0 < $patchfolder\security.rb.patch"
+  
   #win pe startup scripts
   echo d |xcopy /Y "$runtimefolder\startnet.cmd" "$mountfolder\Windows\System32"
   echo d |xcopy /Y "$runtimefolder\custom.ps1" "$mountfolder"
