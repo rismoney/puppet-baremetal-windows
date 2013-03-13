@@ -27,10 +27,15 @@ function build-wim {
   # perform all the extractions to the mount folder
   unzip-winbits
 
+  mkdir -p "$mountfolder\tools"
+
   echo d | xcopy /S /Y "$downloadfolder\ruby-1.8.7-p371-i386-mingw32\*.*" "$mountfolder\Ruby187"
   
   #copy gems file to the mount
   echo d | xcopy /S /Y "$downloadfolder\gems" "$mountfolder\gems\"
+
+  #copy zip executable
+  echo d | xcopy /S /Y "$downloadfolder\7za.exe" "$mountfolder\tools"
 
   # drop in the devkit config file with x:\ruby187
   echo d | xcopy /Y "$config\config.yml" "$mountfolder\devkit"
@@ -50,7 +55,7 @@ function build-wim {
   echo d |xcopy /Y "$runtimefolder\custom.ps1" "$mountfolder"
   echo d |xcopy /Y "$runtimefolder\host-enforce.ps1" "$mountfolder"
 
-  mkdir -p "$mountfolder\tools"
+  #add get-webfile to winpe
   echo d |xcopy /Y "$winbuild\Get-WebFile.ps1" "$mountfolder\tools"
   # echo d |xcopy /Y "$config\GemFile" "$mountfolder"
 
