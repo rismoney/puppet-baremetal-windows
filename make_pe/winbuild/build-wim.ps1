@@ -58,6 +58,9 @@ function build-wim {
   #add get-webfile to winpe
   echo d |xcopy /Y "$winbuild\Get-WebFile.ps1" "$mountfolder\tools"
   # echo d |xcopy /Y "$config\GemFile" "$mountfolder"
+  
+  #add imagex
+  echo d |xcopy /Y "$adkfolder\Assessment and Deployment Kit\Deployment Tools\x86\DISM\imagex.exe" "$mountfolder\tools"
 
   add-packages
   
