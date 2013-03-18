@@ -1,6 +1,7 @@
 $downloadfolder="C:\download"
 $mountfolder="C:\mount"
 $winpefolder="C:\WinPE_x86"
+$driverfolder="C:\PEdrivers"
 $adkfolder = 'C:\Program Files (x86)\Windows Kits\8.0'
 $puppetmaster = 'puppet.inf.ise.com'
 

@@ -15,6 +15,8 @@ Edit puppetmaster in host-enforce.ps1 L55 (I am using my production puppet agent
 
 Edit runtime\custom.ps1 [1]
 
+Put oem PE drivers in $driverfolder - default C:\PEDrivers [2]
+
 
 ## Status
 Puppet bootstrap completed - needs clean up and customization.  Tested only on VMWare
@@ -82,3 +84,7 @@ stored in version control.
 [1] I use a custom facter fact that allows mocking host names.  This allows me to impersonate any host and not worry about MININT-###
 I have not yet opensource the mocking componentry, but you could simply target fqdn or mac or similar facter fact for now.
 
+[2] WinPE Drivers (the big 3)
+HP puts theirs  http://h18004.www1.hp.com/products/servers/management/toolkit/stk/index.html
+Dell puts theirs http://www.dell.com/support/drivers/us/en/555/DriverDetails?driverId=FPKJR&fileId=2731119569
+IBM Puts theirs http://www-947.ibm.com/support/entry/portal/docdisplay?lndocid=migr-5082208

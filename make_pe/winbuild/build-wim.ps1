@@ -62,6 +62,11 @@ function build-wim {
   #add imagex
   echo d |xcopy /Y "$adkfolder\Assessment and Deployment Kit\Deployment Tools\x86\DISM\imagex.exe" "$mountfolder\tools"
 
+  #add 3rd party drivers
+  if (test-path -path $driverfolder) {
+    & $dism /image:$mountfolder /Add-Driver /Driver:"$driverfolder" /Recurse
+  }
+
   add-packages
   
   try {
