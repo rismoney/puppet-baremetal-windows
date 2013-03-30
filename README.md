@@ -1,11 +1,12 @@
 puppet-baremetal-windows
 ========================
 
-member of the rismoney suite of Puppet stuff. (not a provider)
+member of the rismoney suite of Puppet
 
 ## tl;dr: manage windows from baremetal to bar none
 
-We're going to use the Windows ADK (specifically WinPE) and Puppet to fully bootstrap and configure a node.
+We're going to integrate Puppet into WinPE 4.0 (the 'live' image from the Windows ADK).  This will bring total
+puppet coverage for a Windows nodes from baremetal all the way to the fully loaded OS
 
 
 ## How do I use this?
@@ -19,15 +20,15 @@ Put oem PE drivers in $driverfolder - default C:\PEDrivers [2]
 
 
 ## Status
-Puppet bootstrap completed - needs clean up and customization.  Tested only on VMWare
+This is now operational.  Puppet can compile and execute properly under Windows PE
+Image has only been tested on VMWare ISO mounting.
+It has not yet been tested via PXE, or on other hypervisors ie VirtualBox, HyperV, etc
 
-Image has not been tested via PXE, or on other hypervisors ie VirtualBox, HyperV, etc
-
-## Goal:
-1. PXE boot to WinPE - Core Functionality completed
-2. Run Puppet - Core Functionality completed
-3. OS installation - TODO
-4. Run Puppet - EASY PEASY ONE TO THREESY
+## Goals - automate everything: 
+1. PXE boot to WinPE - Done!
+2. Run Puppet under WinPE - Done!
+3. OS installation - Done!
+4. Run Puppet - EASY PEASY ONE TO THREESY - Done!
 
 
 What is [Puppet] (www.puppetlabs.com)? 
@@ -41,19 +42,20 @@ Windows Deployment is for OEMs and IT professionals who customize and automate t
 ## Requirements - 
 Minimum Win7+ Build host (I used a VM)
 
-The following will be downloaded and install automatically:
-1. Windows ADK for Windows 8 (I chose this so we are not building around obsolescence)
+The following will be downloaded and installed automatically via make_pe:
+1. Windows ADK for Windows 8 (I chose this so we are not building around Win7/2008/older revs)
 2. Facter from Source
 3. Puppet from Source
 4. Ruby 1.87 (Puppet on Windows only supports 1.8.7 currently)
 5. Gems - see the list here https://github.com/rismoney/puppet-baremetal-windows/blob/master/make_pe/config/config.ps1#L24-L35
-6. Gnu patch.exe
+6. Gnu patch.exe - to workaround the minimalistic nature of the WinPE live image
 
 ## Relevant tidbits:
-SysWow64 is not present in WinPE_x64 so we will use x86
+SysWow64 is not present in WinPE_x64 so we will use x86.  We will use imagex to deploy OS 32/64 bit OS, and not
+run setup.exe.  This is ideal and fastest way to install.
 EventViewer is not present in WinPE so we will patch puppet source (destinations.rb L254-258)
 PXE server is your choice and is outside of scope for now
-Built around Win2008 R2 deployment but it could be anything
+Testing has been on Win2008 R2 deployment but it could be any OS
 
 
 # TODO 
@@ -61,10 +63,11 @@ Built around Win2008 R2 deployment but it could be anything
 ## Operating System Build:
 
 ### optimization ideas
-1. strip down winPE to only include bare minimum for speed
+1. strip down winPE to only include bare minimum for speed - currently at ~350MB - could probably be ~150MB
 2. validate across hypervisors
 3. leverage hiera for puppet module
 4. tune process for easy driver injection (probably nic and san are pain points)
+5. Open Source sysprep and winbuild baremetal puppet module.
 
 
 # WHY?
