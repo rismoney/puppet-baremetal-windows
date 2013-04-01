@@ -1,4 +1,4 @@
-Resolve-Path .\get-DHCPHostname.ps1 | % { . $_.ProviderPath }
+. X:\get-DHCPHostname.ps1
 $hostname = (get-DHCPHostname)
 # $dnsname = (gwmi win32_networkadapterconfiguration | where {$_.ipenabled -eq "true" -and $_.dhcpenabled -eq "true"}).dnsdomain
 # $env:ise_mock_fqdn=$hostname + "." + $dnsname
