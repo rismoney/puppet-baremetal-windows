@@ -5,7 +5,7 @@ $patchfolder = join-path $here "\patches"
 $runtimefolder = join-path $here "\runtime"
 
 Resolve-Path $config\config.ps1 | % { . $_.ProviderPath }
-Resolve-Path $winbuild\*.ps1 | 
+Resolve-Path $winbuild\*.ps1 |
     ? { -not ($_.ProviderPath.Contains(".Tests.")) } |
     % { . $_.ProviderPath }
 

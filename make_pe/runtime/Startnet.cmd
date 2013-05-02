@@ -1,5 +1,5 @@
 wpeinit
-
+for /f %%F in ('dir /s /b /OD x:\windows\inf\oem*.inf') do drvload %%F
 rem add ruby to path
 set path=X:\windows\system32;X:\Windows\System32\WindowsPowerShell\v1.0;X:\ruby187\bin;
 

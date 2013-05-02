@@ -16,5 +16,5 @@ function make-iso {
 
   #lets make the iso (its about time)
 
-   & "$oscdimg" -bC:\WinPE_x86\etfsboot.com -n C:\WinPE_x86\ISO C:\WinPE_x86\WinPE_X86.iso
+   & "$oscdimg" -bC:\WinPE_x86\etfsboot.com -n C:\WinPE_x86\ISO C:\WinPE_x86\WinPE_x86.iso
 }
