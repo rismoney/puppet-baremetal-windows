@@ -1,6 +1,6 @@
 function build-wim {
 
-  # Create the WinPE working folder 
+  # Create the WinPE working folder
   if (-not(test-path -path $winpefolder)) {
     mkdir -p $winpefolder
   }
@@ -30,7 +30,7 @@ function build-wim {
   mkdir -p "$mountfolder\tools"
 
   echo d | xcopy /S /Y "$downloadfolder\ruby-1.8.7-p371-i386-mingw32\*.*" "$mountfolder\Ruby187"
-  
+
   #copy gems file to the mount
   echo d | xcopy /S /Y "$downloadfolder\gems" "$mountfolder\gems\"
 
@@ -42,14 +42,14 @@ function build-wim {
 
   # patch puppet source to not use eventlog (n/a in WinPE)
   cmd /c "$mountfolder\patch\bin\patch.exe --force -d $mountfolder\puppet-2.7.x\lib\puppet\util\log -p 0 < $patchfolder\destinations.rb.patch"
-  
+
   # patch puppet source to not do volume inspection for ntfs (X:\ is not a traditional volume) so we just say it is
   cmd /c "$mountfolder\patch\bin\patch.exe --force -d $mountfolder\puppet-2.7.x\lib\puppet\util\windows -p 0 < $patchfolder\security.rb.patch"
-  
+
   mkdir -p "$mountfolder\ProgramData\PuppetLabs\facter\facts.d"
   echo d | xcopy /Y "$config\puppet_installer.txt" "$mountfolder\ProgramData\PuppetLabs\facter\facts.d"
   add-content "$mountfolder\ProgramData\PuppetLabs\facter\facts.d\puppet_installer.txt" "`nfact_stomp_server=$puppetmaster"
-  
+
   #win pe startup scripts
   echo d |xcopy /Y "$runtimefolder\startnet.cmd" "$mountfolder\Windows\System32"
   echo d |xcopy /Y "$runtimefolder\custom.ps1" "$mountfolder"
@@ -59,17 +59,17 @@ function build-wim {
   #add get-webfile to winpe
   echo d |xcopy /Y "$winbuild\Get-WebFile.ps1" "$mountfolder\tools"
   # echo d |xcopy /Y "$config\GemFile" "$mountfolder"
-  
+
   #add imagex
   echo d |xcopy /Y "$adkfolder\Assessment and Deployment Kit\Deployment Tools\x86\DISM\imagex.exe" "$mountfolder\tools"
 
   #add 3rd party drivers
   if (test-path -path $driverfolder) {
-    & $dism /image:$mountfolder /Add-Driver /Driver:"$driverfolder" /Recurse
+    & $dism /image:$mountfolder /Add-Driver /Driver:"$driverfolder" /Recurse /ForceUnsigned
   }
 
   add-packages
-  
+
   try {
 
     $imagex_mount_arg="/unmount /commit $mountfolder"
