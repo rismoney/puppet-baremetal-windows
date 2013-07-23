@@ -7,5 +7,28 @@ $hostname = (get-DHCPHostname)
 $env:ise_mock_fqdn = get-DHCPHostname
 $env:FACTER_env_windows_installdir="X:\puppet-2.7.x"
 $env:ise_kickstarting="yes"
-X:\host-enforce.ps1 -b production -tags "winbuild, choco, ringo" -disableeventlog true
+
+#start of branch selection routine
+$timer = 5
+$i = 1
+
+Do {
+  Write-host -ForeGroundColor green -noNewLine "Press any key in $($timer-$i) seconds to enter a branch name"
+  $pos = $host.UI.RawUI.get_cursorPosition()
+  $pos.X = 0
+  $host.UI.RawUI.set_cursorPosition($Pos)
+  if($host.UI.RawUI.KeyAvailable) {
+    $Host.UI.RawUI.FlushInputBuffer()
+    write-output ""
+    $branch= Read-Host "Please enter the branch you would like to run the puppet agent against"
+    $timer=-1
+  }
+start-Sleep -Seconds 1
+
+$i++
+}While ($i -le $timer)
+if (!$branch) {$branch = "production"}
+# end of branch selection routine
+
+X:\host-enforce.ps1 -b $branch -tags "winbuild, choco, ringo" -disableeventlog true
 X:\post-puppet.ps1
