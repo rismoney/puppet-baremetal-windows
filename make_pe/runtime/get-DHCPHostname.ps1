@@ -1,3 +1,7 @@
+# this is a ripoff of 
+# http://gallery.technet.microsoft.com/scriptcenter/Detect-Windows-Azure-aed06d51
+# I shamefully modified the powershell near the end to instead obtain scope option 12. 
+
 $source = @"
 using System;
 using System.Collections.Generic;
