@@ -5,11 +5,16 @@ member of the rismoney suite of Puppet
 
 ## tl;dr: manage windows from baremetal to bar none
 
-We're going to integrate Puppet into WinPE 4.0 (the 'live' image from the Windows ADK).  This will bring total
-puppet coverage for a Windows nodes from baremetal all the way to the fully loaded OS
+This project aims to integrate Puppet into WinPE 4.0 (the 'live' image from the Windows ADK).
+
+This will bring total puppet coverage for a Windows node from baremetal all the way to the fully application
+layered OS.
 
 
 ## How do I use this?
+This is how I am using it.  This needs to be cleaned up into a single configuration point.
+Right now I forked this from an internal project.
+
 Edit relevant sections in make_pe\config.ps1
 
 Edit puppetmaster in host-enforce.ps1 L55 (I am using my production puppet agent script until i refactor)
@@ -20,9 +25,10 @@ Put oem PE drivers in $driverfolder - default C:\PEDrivers [2]
 
 
 ## Status
-This is now operational.  Puppet can compile and execute properly under Windows PE
-Image has only been tested on VMWare ISO mounting.
-It has not yet been tested via PXE, or on other hypervisors ie VirtualBox, HyperV, etc
+This is now operational.  Puppet executes properly under Windows PE with this build
+The ISO has been fully tested on VMWare, and baremetal via pxe servers (SysLinux)
+
+Further tests are needed on other hypervisors ie VirtualBox, HyperV, etc
 
 ## Goals - automate everything: 
 1. PXE boot to WinPE - Done!
@@ -40,7 +46,7 @@ Puppet is IT automation software that helps system administrators manage infrast
 Windows Deployment is for OEMs and IT professionals who customize and automate the large-scale installation of Windows, such as on a factory floor or across an organization. The Windows ADK supports this work with the deployment tools that were previously released as part of the OEM Preinstallation Kit (OPK) and the Windows Automated Installation Kit (AIK) and include Windows Preinstallation Environment, Deployment Imaging, Servicing and Management, and Windows System Image Manager. 
 
 ## Requirements - 
-Minimum Win7+ Build host (I used a VM)
+Minimum Win7+ Build host (I use a vanilla win7 VM to build iso)
 
 The following will be downloaded and installed automatically via make_pe:
 1. Windows ADK for Windows 8 (I chose this so we are not building around Win7/2008/older revs)
@@ -64,14 +70,10 @@ Testing has been on Win2008 R2 deployment but it could be any OS
 
 ### optimization ideas
 1. strip down winPE to only include bare minimum for speed - currently at ~350MB - could probably be ~150MB
-2. validate across hypervisors
-3. leverage hiera for puppet module
-4. tune process for easy driver injection (probably nic and san are pain points)
-5. Open Source sysprep and winbuild baremetal puppet module.
 
 
 # WHY?
-I currently have complex build process for our nodes.  Its awesome, and I hope to open source it one day.
+I currently have complex build processes for our nodes.  Its awesome, and I hope to open source it one day.
 But it is unnecessarily complex, because we want our cake and eat it too.  Every host permutation conceivable
 is what we do.  I want disparate perfect unattended builds on unique hardware everytime.
 The same build bootstrap system for desktops, laptops, servers, etc.  And I want it DONE with 1 command to set 
@@ -80,12 +82,12 @@ set it all up.
 Currently I have a minimalist sysprep, and perform a series of tasks post setup based on a series of 
 version controlled files csv, yaml and txt file.  This process is now 15 steps, and requires a ton of reboots.
 Everything from domain joins, renames, driver loads requires rebooting, dot net 4, you name it.
-This is an experiment to make 1 step.  To have one data source hiera yaml files.  To eliminate powershell scripts
-wherever possible.  To leverage the logic needed to build any type of host you want, just by editing a file
+To have one data source - hiera yaml files.  To eliminate powershell scripts wherever possible.
+To leverage the logic needed to build any type of host you want, just by editing a file
 stored in version control.
 
 [1] I use a custom facter fact that allows mocking host names.  This allows me to impersonate any host and not worry about MININT-###
-I have not yet opensource the mocking componentry, but you could simply target fqdn or mac or similar facter fact for now.
+I opensourced 2 mocking components as relevant config items.
 
 [2] WinPE Drivers (the big 3)
 HP puts theirs  http://h18004.www1.hp.com/products/servers/management/toolkit/stk/index.html
