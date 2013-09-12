@@ -1,6 +1,0 @@
-select disk 0
-create partition primary
-select partition 3
-format fs=ntfs label="Apps" QUICK
-assign letter=D
-exit
