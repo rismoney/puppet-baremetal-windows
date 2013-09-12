@@ -1,0 +1,15 @@
+select disk 0
+clean
+create partition primary size=128
+select partition 1
+format fs=ntfs label="System"
+active
+create partition primary size=102400
+select partition 2
+format fs=ntfs label="Windows" QUICK
+assign letter=C
+create partition primary
+select partition 3
+format fs=ntfs label="Apps" QUICK
+assign letter=D
+exit
