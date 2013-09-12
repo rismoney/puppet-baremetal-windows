@@ -1,0 +1,12 @@
+#get-webfile has status bar so we use it for big file download
+. X:\tools\Get-WebFile.ps1
+get-webfile http://chocopackages.example.com/windows/<%= scope.lookupvar('winbuild::windows::targetos') %>/install.wim c:\@inf\winbuild\packages\install.wim
+X:\tools\imagex.exe /apply c:\@inf\winbuild\packages\install.wim <%= scope.lookupvar('winbuild::windows::imageno') %> C:\
+# get-webfile is wonky here, so dotnet to the rescue
+$(New-Object System.Net.WebClient).downloadfile("http://chocopackages.example.com/nuget/nuget.exe","C:\windows\nuget.exe")
+copy X:\build\unattend-std-<%= scope.lookupvar('winbuild::windows::targetos') %>.xml c:\windows\system32\sysprep\unattend.xml
+mkdir C:\chocolatey
+mkdir C:\chocolatey\chocolateyinstall
+copy X:\build\chocolatey.config C:\chocolatey\chocolateyinstall
+copy X:\build\host-enforce.ps1 C:\@inf\winbuild\scripts
+bcdboot C:\windows

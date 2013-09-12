@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<unattend xmlns="urn:schemas-microsoft-com:unattend">
+    <servicing>
+        <package action="configure">
+            <assemblyIdentity name="Microsoft-Windows-ServerCore-Package" version="6.2.9200.16384" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="" />
+            <selection name="SNMP" state="true" />
+            <selection name="WMISnmpProvider" state="true" />
+        </package>
+    </servicing>
+    <settings pass="windowsPE">
+        <component name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <InputLocale>0409:00000409</InputLocale>
+            <SystemLocale>en-US</SystemLocale>
+            <UserLocale>en-US</UserLocale>
+            <UILanguage>en-US</UILanguage>
+            <SetupUILanguage>
+                <UILanguage>en-US</UILanguage>
+            </SetupUILanguage>
+        </component>
+        <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <EnableNetwork>true</EnableNetwork>
+            <UserData>
+                <!-- do NOT specify productkey in this pass -->
+                <AcceptEula>true</AcceptEula>
+                <FullName>Puppet-Baremetal</FullName>
+                <Organization>Puppet-Baremetal</Organization>
+            </UserData>
+        </component>
+    </settings>
+    <settings pass="offlineServicing">
+        <component name="Microsoft-Windows-PnpCustomizationsNonWinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <DriverPaths>
+                <PathAndCredentials wcm:action="add" wcm:keyValue="1">
+                    <Path><%= scope.lookupvar('winbuild::baremetal::driverpath') %></Path>
+                </PathAndCredentials>
+            </DriverPaths>
+        </component>
+    </settings>
+    <settings pass="specialize">
+        <component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <InputLocale>0409:00000409</InputLocale>
+            <SystemLocale>en-US</SystemLocale>
+            <UserLocale>en-US</UserLocale>
+            <UILanguage>en-US</UILanguage>
+        </component>
+        <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ComputerName><%= scope.lookupvar('winbuild::baremetal::compname') %></ComputerName>
+        </component>
+        <component name="Microsoft-Windows-UnattendedJoin" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <Identification>
+                <JoinDomain><%= scope.lookupvar('winbuild::baremetal::joindomain') %></JoinDomain>
+                <MachineObjectOU><%= scope.lookupvar('winbuild::baremetal::machineobjectou') %></MachineObjectOU>
+                <Credentials>
+                    <Domain><%= scope.lookupvar('winbuild::baremetal::domain') %></Domain>
+                    <Password><%= scope.lookupvar('winbuild::baremetal::password') %></Password>
+                    <Username><%= scope.lookupvar('winbuild::baremetal::username') %></Username>
+                </Credentials>
+            </Identification>
+        </component>
+        <component name="Microsoft-Windows-SNMP-Agent-Service" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="NonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ValidCommunities>
+                <ValidCommunity wcm:action="add" wcm:keyValue="public">4</ValidCommunity>
+                <ValidCommunity wcm:action="add" wcm:keyValue="private">8</ValidCommunity>
+            </ValidCommunities>
+        </component>
+        <component name="Networking-MPSSVC-Svc" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <FirewallGroups>
+                <FirewallGroup wcm:action="add" wcm:keyValue="1">
+                    <Active>true</Active>
+                    <Group>Remote Desktop</Group>
+                    <Profile>all</Profile>
+                </FirewallGroup>
+            </FirewallGroups>
+            <DomainProfile_EnableFirewall>false</DomainProfile_EnableFirewall>
+            <PrivateProfile_EnableFirewall>false</PrivateProfile_EnableFirewall>
+            <PublicProfile_EnableFirewall>false</PublicProfile_EnableFirewall>
+        </component>
+        <component name="Microsoft-Windows-TerminalServices-LocalSessionManager" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <fDenyTSConnections>false</fDenyTSConnections>
+        </component>
+        <component name="Microsoft-Windows-TerminalServices-RDP-WinStationExtensions" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <UserAuthentication>0</UserAuthentication>
+        </component>
+    </settings>
+    <settings pass="oobeSystem">
+        <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <UserAccounts>
+                <AdministratorPassword>
+                    <Value>CENSORED</Value>
+                    <PlainText>false</PlainText>
+                </AdministratorPassword>
+            </UserAccounts>
+            <OOBE>
+                <HideEULAPage>true</HideEULAPage>
+                <SkipUserOOBE>true</SkipUserOOBE>
+            </OOBE>
+            <TimeZone>Eastern Standard Time</TimeZone>
+            <AutoLogon>
+                <Username>Administrator</Username>
+                <Password>
+                    <Value>CENSORED</Value>
+                    <PlainText>false</PlainText>
+                </Password>
+                <Enabled>true</Enabled>
+                <LogonCount>1</LogonCount>
+            </AutoLogon>
+            <RegisteredOrganization>International Securities Exchange</RegisteredOrganization>
+            <RegisteredOwner>International Securities Exchange</RegisteredOwner>
+            <FirstLogonCommands>
+                <SynchronousCommand wcm:action="add"> 
+                    <Order>1</Order>
+                    <CommandLine>%WINDIR%\System32\gpupdate.exe</CommandLine> 
+                    <Description>group policy update - gets the trusted root cert</Description> 
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add"> 
+                    <Order>2</Order>
+                    <CommandLine>%WINDIR%\System32\WindowsPowerShell\v1.0\PowerShell.exe -command Set-ExecutionPolicy unrestricted -force >> C:\@inf\winbuild\logs\Set-ExecutionPolicy.log</CommandLine> 
+                    <Description>Set the ExecutionPolicy to Unrestricted for the script to run</Description> 
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>%WINDIR%\System32\WindowsPowerShell\v1.0\PowerShell.exe -executionpolicy unrestricted C:\@inf\winbuild\scripts\inst-chocolatey.ps1 >> C:\@inf\winbuild\logs\inst-chocolatey.log</CommandLine>
+                    <Order>3</Order>
+                    <Description>install chocolatey</Description>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add"> 
+                    <Order>4</Order> 
+                    <CommandLine>%WINDIR%\System32\WindowsPowerShell\v1.0\PowerShell.exe -command "& { . C:\@inf\winbuild\scripts\Set-Pagefilesize.ps1; Set-PageFileSize}" >> C:\@inf\winbuild\logs\Set-Pagefilesize.log</CommandLine> 
+                    <Description>Set the PageFile = Total Memory + 1MB</Description> 
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>C:\chocolatey\bin\cinst.bat PuppetEnterprise</CommandLine>
+                    <Order>6</Order>
+                    <Description>install puppet</Description>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>%WINDIR%\System32\WindowsPowerShell\v1.0\PowerShell.exe -command "& {$env:chocolateyinstall='C:\chocolatey'; $env:ISE_WINBUILD_VERSION='1.0';C:\@inf\winbuild\scripts\host-enforce.ps1 -b production}"</CommandLine>
+                    <Order>7</Order>
+                    <Description>host enforce - set env vars here because they havent taken effect yet. </Description>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>setx PATH "%path%;C:\@inf\winbuild\scripts" /m</CommandLine>
+                    <Order>8</Order>
+                    <Description>add scripts to path</Description>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>setx ISE_WINBUILD_VERSION "1.0" /m</CommandLine>
+                    <Order>9</Order>
+                    <Description>ISE WINBUILD VERSION</Description>
+                </SynchronousCommand>
+            </FirstLogonCommands>
+        </component>
+        <component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <InputLocale>0409:00000409</InputLocale>
+            <SystemLocale>en-US</SystemLocale>
+            <UILanguage>en-US</UILanguage>
+            <UserLocale>en-US</UserLocale>
+        </component>
+    </settings>
+    <cpi:offlineImage cpi:source="wim:c:/2012/sources/install.wim#Windows Server 2012 SERVERSTANDARD" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
+</unattend>
