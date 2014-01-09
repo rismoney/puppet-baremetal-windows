@@ -49,3 +49,6 @@ X:\host-enforce.ps1 -b $branch -tags "winbuild, choco, ringo" -disableeventlog t
 
 # call out post puppet script (this is empty in this repo- but we deploy a replacement file to do more needful ops)
 X:\post-puppet.ps1
+
+#save branch name to disk for later consumption
+$branch |out-file C:\@inf\winbuild\scratch\buildbranch.txt
