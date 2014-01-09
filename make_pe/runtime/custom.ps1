@@ -1,7 +1,7 @@
 . X:\get-DHCPHostname.ps1
 #disable all nics except "Ethernet"  windows 2012 is deterministic...
 # this is done to ensure the primary adapter ties back to the DHCP reservatoin
-gwmi -class win32_networkadapter |where-object {$_.netconnectionid -ne "Ethernet" -and $_.netenabled -eq $true} |foreach {$_.disable()}
+gwmi -class win32_networkadapter |where-object {$_.netconnectionid -ne "Ethernet" -and ($_.netenabled -eq $true -or $_.netconnectionstatus -eq '7')} |foreach {$_.disable()}
 
 # we get the dhcp scope option 12 via get-dhcphostname script since windows dhcp cannot get it on its own.
 # reference : http://support.microsoft.com/kb/121005/en-us
