@@ -21,7 +21,7 @@ $env:ise_kickstarting="yes"
 # to manually type a branch name.  If no branch is provided, we will be using production.
 
 #start of branch selection routine
-$timer = 5
+$timer = 600
 $i = 1
 
 Do {
