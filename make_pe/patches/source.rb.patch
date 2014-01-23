@@ -1,0 +1,19 @@
+*** source.rb	2012-10-09 17:32:52.000000000 -0400
+--- source_mod.rb.txt	2013-02-08 11:35:06.861849500 -0500
+***************
+*** 120,126 ****
+          next if metadata_method == :checksum and metadata.ftype == "link" and metadata.links == :manage
+  
+          if Puppet.features.microsoft_windows?
+!           next if [:owner, :group].include?(metadata_method) and !local?
+          end
+  
+          if resource[param_name].nil? or resource[param_name] == :absent
+--- 120,126 ----
+          next if metadata_method == :checksum and metadata.ftype == "link" and metadata.links == :manage
+  
+          if Puppet.features.microsoft_windows?
+!           next if [:owner, :group, :mode].include?(metadata_method)
+          end
+  
+          if resource[param_name].nil? or resource[param_name] == :absent

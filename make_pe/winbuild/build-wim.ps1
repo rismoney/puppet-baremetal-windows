@@ -46,6 +46,10 @@ function build-wim {
   # patch puppet source to not do volume inspection for ntfs (X:\ is not a traditional volume) so we just say it is
   cmd /c "$mountfolder\patch\bin\patch.exe --force -d $mountfolder\puppet-2.7.x\lib\puppet\util\windows -p 0 < $patchfolder\security.rb.patch"
 
+  # patch puppet source to not mess with mode on windows
+  cmd /c "$mountfolder\patch\bin\patch.exe --force -d $mountfolder\puppet-2.7.x\lib\puppet\type\file -p 0 < $patchfolder\source.rb.patch"
+
+  
   mkdir -p "$mountfolder\ProgramData\PuppetLabs\facter\facts.d"
   echo d | xcopy /Y "$config\puppet_installer.txt" "$mountfolder\ProgramData\PuppetLabs\facter\facts.d"
   add-content "$mountfolder\ProgramData\PuppetLabs\facter\facts.d\puppet_installer.txt" "`nfact_stomp_server=$puppetmaster"
