@@ -1,18 +1,18 @@
 wpeinit
-# see http://technet.microsoft.com/en-us/library/cc766390(v=ws.10).aspx 
-# drvload will add out of box drivers
+REM see http://technet.microsoft.com/en-us/library/cc766390(v=ws.10).aspx 
+REM drvload will add out of box drivers
 
 for /f %%F in ('dir /s /b /OD x:\windows\inf\oem*.inf') do drvload %%F
 rem add ruby to path
 set path=X:\windows\system32;X:\Windows\System32\WindowsPowerShell\v1.0;X:\ruby187\bin;
 
-rem we don't run ruby init because that will wipe config.yml
+REM  we don't run ruby init because that will wipe config.yml
 cd \devkit
 
 ruby dk.rb install
 
-# the process to install puppet from source was gleaned from here:
-# http://docs.puppetlabs.com/windows/from_source.html
+REM the process to install puppet from source was gleaned from here:
+REM http://docs.puppetlabs.com/windows/from_source.html
 
 rem add gems path
 call gem install --no-ri --no-rdoc --local X:\gems\win32-api-1.4.8-x86-mingw32.gem
@@ -27,5 +27,5 @@ ruby install.rb
 cd \puppet-2.7.x
 ruby install.rb
 
-# call actual work script after PE, facter, and puppet is installed
+REM call actual work script after PE, facter, and puppet is installed
 powershell.exe -ExecutionPolicy Unrestricted x:\custom.ps1
