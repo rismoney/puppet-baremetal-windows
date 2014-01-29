@@ -29,3 +29,5 @@ ruby install.rb
 
 REM call actual work script after PE, facter, and puppet is installed
 powershell.exe -ExecutionPolicy Unrestricted x:\custom.ps1
+timeout 15
+exit
