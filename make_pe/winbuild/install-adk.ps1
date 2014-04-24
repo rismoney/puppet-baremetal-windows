@@ -4,7 +4,7 @@ function install-adk {
     try {
       write-output "installing adksetup.exe - this can take several minutes"
       $adksetupargs="/quiet /promptrestart /ceip off /installpath ""$adkfolder"" /features OptionId.DeploymentTools OptionId.WindowsPreinstallationEnvironment"
-      Start-Process "C:\download\adksetup.exe" -ArgumentList $adksetupargs -NoNewWindow -Wait -ea stop
+      Start-Process "C:\download\adk\adksetup.exe" -ArgumentList $adksetupargs -NoNewWindow -Wait -ea stop
       write-output "done installing adksetup.exe"
     }
     catch {
