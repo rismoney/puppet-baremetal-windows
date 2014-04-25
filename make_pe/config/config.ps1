@@ -1,4 +1,4 @@
-$downloadfolder="C:\download"
+﻿$downloadfolder="C:\download"
 $mountfolder="C:\mount"
 $winpefolder="C:\WinPE_x86"
 $driverfolder="C:\PEdrivers"
@@ -47,7 +47,40 @@ $gemlist = (
 #source for adk offline download all files 
 #http://forums.mydigitallife.info/threads/36370-Windows-8-ADK-Offline-Downloader-Tool/page3?p=691453&viewfull=1#post691453
 
-$adklist = (
+# deptools is a subset and not used at this time.
+$deptools = (
+  'http://download.microsoft.com/download/9/9/F/99F5E440-5EB5-4952-9935-B99662C3DF70/adk/Installers/Windows Deployment Tools-x86_en-us.msi',
+  'http://download.microsoft.com/download/9/9/F/99F5E440-5EB5-4952-9935-B99662C3DF70/adk/Installers/0c48c56ca00155f992c30167beb8f23d.cab',
+  'http://download.microsoft.com/download/9/9/F/99F5E440-5EB5-4952-9935-B99662C3DF70/adk/Installers/3b71855dfae6a44ab353293c119908b8.cab',
+  'http://download.microsoft.com/download/9/9/F/99F5E440-5EB5-4952-9935-B99662C3DF70/adk/Installers/5d984200acbde182fd99cbfbe9bad133.cab',
+  'http://download.microsoft.com/download/9/9/F/99F5E440-5EB5-4952-9935-B99662C3DF70/adk/Installers/36e3c2de16bbebad20daec133c22acb1.cab',
+  'http://download.microsoft.com/download/9/9/F/99F5E440-5EB5-4952-9935-B99662C3DF70/adk/Installers/56dd07dea070851064af5d29cadfac56.cab',
+  'http://download.microsoft.com/download/9/9/F/99F5E440-5EB5-4952-9935-B99662C3DF70/adk/Installers/69f8595b00cf4081c2ecc89420610cbd.cab',
+  'http://download.microsoft.com/download/9/9/F/99F5E440-5EB5-4952-9935-B99662C3DF70/adk/Installers/413a073d16688e177d7536cd2a64eb43.cab',
+  'http://download.microsoft.com/download/9/9/F/99F5E440-5EB5-4952-9935-B99662C3DF70/adk/Installers/500e0afd7cc09e1e1d6daca01bc67430.cab',
+  'http://download.microsoft.com/download/9/9/F/99F5E440-5EB5-4952-9935-B99662C3DF70/adk/Installers/630e2d20d5f2abcc3403b1d7783db037.cab',
+  'http://download.microsoft.com/download/9/9/F/99F5E440-5EB5-4952-9935-B99662C3DF70/adk/Installers/662ea66cc7061f8b841891eae8e3a67c.cab',
+  'http://download.microsoft.com/download/9/9/F/99F5E440-5EB5-4952-9935-B99662C3DF70/adk/Installers/870d7f92116bc55f7f72e7a9f5d5d6e1.cab',
+  'http://download.microsoft.com/download/9/9/F/99F5E440-5EB5-4952-9935-B99662C3DF70/adk/Installers/1439dbcbd472f531c37a149237b300fc.cab',
+  'http://download.microsoft.com/download/9/9/F/99F5E440-5EB5-4952-9935-B99662C3DF70/adk/Installers/2517aec0259281507bfb693d7d136f30.cab',
+  'http://download.microsoft.com/download/9/9/F/99F5E440-5EB5-4952-9935-B99662C3DF70/adk/Installers/8624feeaa6661d6216b5f27da0e30f65.cab',
+  'http://download.microsoft.com/download/9/9/F/99F5E440-5EB5-4952-9935-B99662C3DF70/adk/Installers/9050f238beb90c3f2db4a387654fec4b.cab',
+  'http://download.microsoft.com/download/9/9/F/99F5E440-5EB5-4952-9935-B99662C3DF70/adk/Installers/a7eb3390a15bcd2c80a978c75f2dcc4f.cab',
+  'http://download.microsoft.com/download/9/9/F/99F5E440-5EB5-4952-9935-B99662C3DF70/adk/Installers/a011a13d3157dae2dbdaa7090daa6acb.cab',
+  'http://download.microsoft.com/download/9/9/F/99F5E440-5EB5-4952-9935-B99662C3DF70/adk/Installers/abbeaf25720d61b6b6339ada72bdd038.cab',
+  'http://download.microsoft.com/download/9/9/F/99F5E440-5EB5-4952-9935-B99662C3DF70/adk/Installers/b6758178d78e2a03e1d692660ec642bd.cab',
+  'http://download.microsoft.com/download/9/9/F/99F5E440-5EB5-4952-9935-B99662C3DF70/adk/Installers/bbf55224a0290f00676ddc410f004498.cab',
+  'http://download.microsoft.com/download/9/9/F/99F5E440-5EB5-4952-9935-B99662C3DF70/adk/Installers/c98a0a5b63e591b7568b5f66d64dc335.cab',
+  'http://download.microsoft.com/download/9/9/F/99F5E440-5EB5-4952-9935-B99662C3DF70/adk/Installers/d2611745022d67cf9a7703eb131ca487.cab',
+  'http://download.microsoft.com/download/9/9/F/99F5E440-5EB5-4952-9935-B99662C3DF70/adk/Installers/ea9c0c38594fd7df374ddfc620f4a1fd.cab',
+  'http://download.microsoft.com/download/9/9/F/99F5E440-5EB5-4952-9935-B99662C3DF70/adk/Installers/eacac0698d5fa03569c86b25f90113b5.cab',
+  'http://download.microsoft.com/download/9/9/F/99F5E440-5EB5-4952-9935-B99662C3DF70/adk/Installers/f2a850bce4500b85f37a8aaa71cbb674.cab',
+  'http://download.microsoft.com/download/9/9/F/99F5E440-5EB5-4952-9935-B99662C3DF70/adk/Installers/f480ed0b7d2f1676b4c1d5fc82dd7420.cab',
+  'http://download.microsoft.com/download/9/9/F/99F5E440-5EB5-4952-9935-B99662C3DF70/adk/Installers/fcc051e0d61320c78cac9fe4ad56a2a2.cab'
+)
+
+# full adk not needed.  but left here for reference
+$adklist= (
   'http://download.microsoft.com/download/9/9/F/99F5E440-5EB5-4952-9935-B99662C3DF70/adk/adksetup.exe',
   'http://download.microsoft.com/download/9/9/F/99F5E440-5EB5-4952-9935-B99662C3DF70/adk/Installers/035c64a427383070735ec20952cb2f4b.cab',
   'http://download.microsoft.com/download/9/9/F/99F5E440-5EB5-4952-9935-B99662C3DF70/adk/Installers/036c618de505eeb40cca35afad6264f5.cab',

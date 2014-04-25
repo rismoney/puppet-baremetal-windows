@@ -2,11 +2,11 @@ function build-wim {
 
   # Create the WinPE working folder
   if (-not(test-path -path $winpefolder)) {
-    mkdir -p $winpefolder
+    mkdir $winpefolder
   }
   else {
     rename-item $winpefolder "$winpefolder-$(Get-Date -Format 'yyyy-MM-dd-HHmmss')"
-    mkdir -p $winpefolder
+    mkdir $winpefolder
   }
 
   # copy winpe wim to our working folder
@@ -27,7 +27,7 @@ function build-wim {
   # perform all the extractions to the mount folder
   unzip-winbits
 
-  mkdir -p "$mountfolder\tools"
+  mkdir "$mountfolder\tools"
 
   echo d | xcopy /S /Y "$downloadfolder\ruby-1.8.7-p371-i386-mingw32\*.*" "$mountfolder\Ruby187"
 
@@ -50,7 +50,7 @@ function build-wim {
   cmd /c "$mountfolder\patch\bin\patch.exe --force -d $mountfolder\puppet-2.7.x\lib\puppet\type\file -p 0 < $patchfolder\source.rb.patch"
 
   
-  mkdir -p "$mountfolder\ProgramData\PuppetLabs\facter\facts.d"
+  mkdir "$mountfolder\ProgramData\PuppetLabs\facter\facts.d"
   echo d | xcopy /Y "$config\puppet_installer.txt" "$mountfolder\ProgramData\PuppetLabs\facter\facts.d"
   add-content "$mountfolder\ProgramData\PuppetLabs\facter\facts.d\puppet_installer.txt" "`nfact_stomp_server=$puppetmaster"
 

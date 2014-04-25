@@ -6,23 +6,23 @@ function download-winbits {
 
   # create download folder if it doesnt exist
   if (-not(test-path -path $downloadfolder)) {
-    mkdir -p $downloadfolder
+    mkdir $downloadfolder
   }
 
   #create mount folder if it doesnt exist
   if (-not(test-path -path $mountfolder)) {
-    mkdir -p $mountfolder
+    mkdir $mountfolder
   }
 
   #create gems folder if it doesnt exist
   if (-not(test-path -path "$downloadfolder\gems")) {
-    mkdir -p "$downloadfolder\gems"
+    mkdir "$downloadfolder\gems"
   }
 
   
   #create adk folder if it does not exist
   if (-not(test-path -path "$downloadfolder\adk")) {
-    mkdir -p "$downloadfolder\adk"
+    mkdir "$downloadfolder\adk"
   }
 
   foreach ($url in $adklist) {
