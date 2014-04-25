@@ -1,6 +1,7 @@
 function unzip-winbits {
+  # first install 7zip silently to program files
+  & "$downloadfolder\7z920.exe /S"
 
-  shellunzip-file $zipfile $downloadfolder 
   remove-item "$downloadfolder\*.txt"
   remove-item "$downloadfolder\*.chm"
 
