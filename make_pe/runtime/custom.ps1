@@ -3,6 +3,13 @@
 # this is done to ensure the primary adapter ties back to the DHCP reservatoin
 gwmi -class win32_networkadapter |where-object {$_.netconnectionid -ne "Ethernet" -and ($_.netenabled -eq $true -or $_.netconnectionstatus -eq '7')} |foreach {$_.disable()}
 
+#if we end up in a state where all adapters have been disabled, enable the adapter containing "Port 1"
+$enabledadapter_count=@(gwmi win32_networkadapter |? {$_.ConfigManagerErrorCode -ne 22 -and $_.AdapterTypeID -eq 0}).count
+if ($enabledadapter_count -eq 0) {
+  $primary_adapter=gwmi win32_networkadapter |? {$_.NetConnectionID -like "*Port 1"}
+  $primary_adapter |foreach {$_.enable()}
+}
+
 # we get the dhcp scope option 12 via get-dhcphostname script since windows dhcp cannot get it on its own.
 # reference : http://support.microsoft.com/kb/121005/en-us
 
@@ -45,7 +52,7 @@ if (!$branch) {$branch = "production"}
 # end of branch selection routine
 
 # call host-enforce against our 3 relevant modules.  host-enforce is a puppet agent run
-X:\host-enforce.ps1 -b $branch -tags "winbuild, choco, ringo" -disableeventlog true
+X:\host-enforce.ps1 -b $branch -tags "winbuild, choco, ringo, firmware" -disableeventlog true
 
 # call out post puppet script (this is empty in this repo- but we deploy a replacement file to do more needful ops)
 X:\post-puppet.ps1
