@@ -13,8 +13,8 @@ $oscdimg = "$adkfolder\Assessment and Deployment Kit\Deployment Tools\x86\Oscdim
 $zipurl= "http://downloads.sourceforge.net/project/sevenzip/7-Zip/9.20/7z920.exe?r=&ts=1398445952&use_mirror=hivelocity"
 $zipfile = "C:\download\7z920.exe"
 
-$rubyurl = "http://rubyforge.org/frs/download.php/76525/ruby-1.8.7-p371-i386-mingw32.7z"
-$rubyfile = "C:\download\ruby-1.8.7-p371-i386-mingw32.7z"
+$rubyurl = "http://dl.bintray.com/oneclick/rubyinstaller/ruby-1.8.7-p374-i386-mingw32.7z?direct"
+$rubyfile = "C:\download\ruby-1.8.7-p374-i386-mingw32.7z"
 
 $devkit = "https://github.com/downloads/oneclick/rubyinstaller/DevKit-tdm-32-4.5.2-20111229-1559-sfx.exe"
 $devkitfile = "C:\download\DevKit-tdm-32-4.5.2-20111229-1559-sfx.exe"

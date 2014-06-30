@@ -29,7 +29,7 @@ function build-wim {
 
   mkdir "$mountfolder\tools"
 
-  echo d | xcopy /S /Y "$downloadfolder\ruby-1.8.7-p371-i386-mingw32\*.*" "$mountfolder\Ruby187"
+  echo d | xcopy /S /Y "$downloadfolder\ruby-1.8.7-p374-i386-mingw32\*.*" "$mountfolder\Ruby187"
 
   write-output "copy gems file to the mount"
   echo d | xcopy /S /Y "$downloadfolder\gems" "$mountfolder\gems\"
