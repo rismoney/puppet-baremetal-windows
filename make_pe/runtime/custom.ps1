@@ -1,25 +1,20 @@
-#disable all nics except "Ethernet"  windows 2012 is deterministic...
+#disable all nics except "Ethernet"  or Port 1 windows 2012 is deterministic...
 # this is done to ensure the primary adapter ties back to the DHCP reservatoin
-gwmi -class win32_networkadapter |where-object {$_.netconnectionid -ne "Ethernet" -and ($_.netenabled -eq $true -or $_.netconnectionstatus -eq '7')} |foreach {$_.disable()}
-
-#if we end up in a state where all adapters have been disabled, enable the adapter containing "Port 1"
-$enabledadapter_count=@(gwmi win32_networkadapter |? {$_.ConfigManagerErrorCode -ne 22 -and $_.AdapterTypeID -eq 0}).count
-if ($enabledadapter_count -eq 0) {
-  $primary_adapter=gwmi win32_networkadapter |? {$_.NetConnectionID -like "*Port 1"}
-  $primary_adapter |foreach {$_.enable()}
-}
+$disableadapters = gwmi -class win32_networkadapter |where-object {(($_.NetConnectionID -notmatch "Port 1") -or ($_.NetConnectionID -eq "Ethernet")) -and ($_.netenabled -eq $true -or $_.netconnectionstatus -eq '7')} 
+$disableadapters | foreach {$_.disable()}
 
 # we get the dhcp scope option 12 via tool script since windows dhcp cannot get it on its own.
 # reference : http://github.com/CyberShadow/dhcptest
+$macaddress = ((gwmi win32_networkadapter) | ? {($_.NetEnabled -eq $true) -and ($_.AdapterTypeID -eq 0)}).macaddress
+write-host -Foregroundcolor magenta "Primary Mac Address: $macaddress"
 
-$macaddress = ((gwmi win32_networkadapter) | ? {$_.NetEnabled -eq $true}).macaddress
 $hostname = X:\dhcptest-0.3.exe --mac $macaddress --request 12 --query --print-only 12 --quiet
-# $dnsname = (gwmi win32_networkadapterconfiguration | where {$_.ipenabled -eq "true" -and $_.dhcpenabled -eq "true"}).dnsdomain
-# $env:ise_mock_fqdn=$hostname + "." + $dnsname
+write-host  -Foregroundcolor magenta  "Hostname obtained via dhcp option 12: $hostname"
+write-host "if the hostname is not correct please abort"
 
 # set an environment variables.  The ise_mock_fqdn and ise_kickstarting tie back to facter facts
 # ise_mock_fqdn overcomes the issue where Windows PE typically boots with a name like MINI-NT######
-$env:ise_mock_fqdn = $hostname
+$env:ise_mock_fqdn = $sysname
 $env:FACTER_env_windows_installdir="X:\puppet-2.7.x"
 $env:ise_kickstarting="yes"
 
