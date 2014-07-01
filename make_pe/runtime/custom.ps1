@@ -14,7 +14,7 @@ write-host "if the hostname is not correct please abort"
 
 # set an environment variables.  The ise_mock_fqdn and ise_kickstarting tie back to facter facts
 # ise_mock_fqdn overcomes the issue where Windows PE typically boots with a name like MINI-NT######
-$env:ise_mock_fqdn = $sysname
+$env:ise_mock_fqdn = $hostname
 $env:FACTER_env_windows_installdir="X:\puppet-2.7.x"
 $env:ise_kickstarting="yes"
 
