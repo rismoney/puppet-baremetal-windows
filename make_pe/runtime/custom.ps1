@@ -13,7 +13,7 @@ if ($enabledadapter_count -eq 0) {
 # reference : http://github.com/CyberShadow/dhcptest
 
 $macaddress = ((gwmi win32_networkadapter) | ? {$_.NetEnabled -eq $true}).macaddress
-$hostname = X:\dhcptest-0.3.exe --mac $macaddress -request 12 --query --printonly 12  --quiet
+$hostname = X:\dhcptest-0.3.exe --mac $macaddress --request 12 --query --print-only 12 --quiet
 # $dnsname = (gwmi win32_networkadapterconfiguration | where {$_.ipenabled -eq "true" -and $_.dhcpenabled -eq "true"}).dnsdomain
 # $env:ise_mock_fqdn=$hostname + "." + $dnsname
 
