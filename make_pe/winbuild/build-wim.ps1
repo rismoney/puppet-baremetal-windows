@@ -58,8 +58,13 @@ function build-wim {
   echo d |xcopy /Y "$runtimefolder\startnet.cmd" "$mountfolder\Windows\System32"
   echo d |xcopy /Y "$runtimefolder\custom.ps1" "$mountfolder"
   echo d |xcopy /Y "$runtimefolder\host-enforce.ps1" "$mountfolder"
-  echo d |xcopy /Y "$runtimefolder\get-DHCPHostname.ps1" "$mountfolder"
-
+  #echo d |xcopy /Y "$runtimefolder\get-DHCPHostname.ps1" "$mountfolder"
+  echo d | xcopy /S /Y "$downloadfolder\dhcptest-0.3.exe" "$mountfolder"
+  
+  write-output "#copy zip executable"
+  
+  
+  
   write-output "add get-webfile to winpe"
   echo d |xcopy /Y "$winbuild\Get-WebFile.ps1" "$mountfolder\tools"
   # echo d |xcopy /Y "$config\GemFile" "$mountfolder"

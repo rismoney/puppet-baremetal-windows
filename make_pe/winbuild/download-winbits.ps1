@@ -53,6 +53,8 @@ function download-winbits {
   if (-not(test-path -path "$puppetfile")) {Get-WebFile $puppeturl $puppetfile}
   else {write-output "Skipping download $puppetfile"}
 
+  if (-not(test-path -path "$dhcptoolfile")) {Get-WebFile $dhcptoolurl $dhcptoolfile}
+  else {write-output "Skipping download $dhcptoolfile"}
 
 
   # install gems

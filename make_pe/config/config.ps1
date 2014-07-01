@@ -25,6 +25,10 @@ $facterfile = "C:\download\1.6.x.zip"
 $puppeturl = "https://github.com/puppetlabs/puppet/archive/2.7.x.zip"
 $puppetfile = "c:\download\2.7.x.zip"
 
+$dhcptoolurl = "http://files.thecybershadow.net/dhcptest/dhcptest-0.3.exe"
+$dhcptoolfile = "C:\download\dhcptest-0.3.exe"
+
+
 $patchurl = "http://downloads.sourceforge.net/project/gnuwin32/patch/2.5.9-7/patch-2.5.9-7-bin.zip?r=&ts=1362969672&use_mirror=voxel"
 $patchfile = "C:\download\patch-2.5.9-7-bin.zip"
 

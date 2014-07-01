@@ -1,4 +1,3 @@
-. X:\get-DHCPHostname.ps1
 #disable all nics except "Ethernet"  windows 2012 is deterministic...
 # this is done to ensure the primary adapter ties back to the DHCP reservatoin
 gwmi -class win32_networkadapter |where-object {$_.netconnectionid -ne "Ethernet" -and ($_.netenabled -eq $true -or $_.netconnectionstatus -eq '7')} |foreach {$_.disable()}
@@ -10,16 +9,17 @@ if ($enabledadapter_count -eq 0) {
   $primary_adapter |foreach {$_.enable()}
 }
 
-# we get the dhcp scope option 12 via get-dhcphostname script since windows dhcp cannot get it on its own.
-# reference : http://support.microsoft.com/kb/121005/en-us
+# we get the dhcp scope option 12 via tool script since windows dhcp cannot get it on its own.
+# reference : http://github.com/CyberShadow/dhcptest
 
-$hostname = (get-DHCPHostname)
+$macaddress = ((gwmi win32_networkadapter) | ? {$_.NetEnabled -eq $true}).macaddress
+$hostname = X:\dhcptest-0.3.exe --mac $macaddress -request 12 --query --printonly 12  --quiet
 # $dnsname = (gwmi win32_networkadapterconfiguration | where {$_.ipenabled -eq "true" -and $_.dhcpenabled -eq "true"}).dnsdomain
 # $env:ise_mock_fqdn=$hostname + "." + $dnsname
 
 # set an environment variables.  The ise_mock_fqdn and ise_kickstarting tie back to facter facts
 # ise_mock_fqdn overcomes the issue where Windows PE typically boots with a name like MINI-NT######
-$env:ise_mock_fqdn = get-DHCPHostname
+$env:ise_mock_fqdn = $hostname
 $env:FACTER_env_windows_installdir="X:\puppet-2.7.x"
 $env:ise_kickstarting="yes"
 
