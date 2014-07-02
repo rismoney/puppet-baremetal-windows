@@ -1,8 +1,15 @@
 #disable all nics except "Ethernet"  or Port 1 windows 2012 is deterministic...
 # this is done to ensure the primary adapter ties back to the DHCP reservatoin
-$disableadapters = gwmi -class win32_networkadapter |where-object {(($_.NetConnectionID -notmatch "Port 1") -or ($_.NetConnectionID -eq "Ethernet")) -and ($_.netenabled -eq $true -or $_.netconnectionstatus -eq '7')} 
-$disableadapters | foreach {$_.disable()}
 
+$disconnected_adapters = gwmi -class win32_networkadapter |where-object  {$_.netconnectionstatus -eq '7'} 
+$nonprimary_adapters   = gwmi -class win32_networkadapter |where-object  {((($_.NetConnectionID -notmatch "Port 1") -and ($_.NetConnectionID -ne "Ethernet")) -and ($_.netenabled -eq $true))} 
+write-host "The following are disconnected adapters:"
+$disconnected_adapters  | select netconnectionid
+write-host "The following are non primary adapters:"
+$nonprimary_adapters  | select netconnectionid
+
+$disconnected_adapters | foreach {$_.disable()}
+$nonprimary_adapters | foreach {$_.disable()}
 # we get the dhcp scope option 12 via tool script since windows dhcp cannot get it on its own.
 # reference : http://github.com/CyberShadow/dhcptest
 $macaddress = ((gwmi win32_networkadapter) | ? {($_.NetEnabled -eq $true) -and ($_.AdapterTypeID -eq 0)}).macaddress
