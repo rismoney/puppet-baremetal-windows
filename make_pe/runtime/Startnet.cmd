@@ -30,22 +30,7 @@ ruby install.rb
 REM call actual work script after PE, facter, and puppet is installed
 powershell.exe -ExecutionPolicy Unrestricted x:\custom.ps1
 
-@ECHO OFF
-ECHO.
-ECHO Waiting for input (Y) to continue (N) to abort build 
-ECHO Default (Y) in 60 seconds
-ECHO.
-CHOICE /T 60 /C YN /D Y
-if "%ERRORLEVEL%" == "1" goto builddone
-if "%ERRORLEVEL%" == "2" goto abort
-GOTO BUILDDONE
+echo sleeping for 20 seconds.  press control-c to terminate batch without reboot
+sleep 20
+exit
 
-:ABORT
-ECHO ABORTED
-GOTO CANCELED
-
-:BUILDDONE
-ECHO BUILDDONE
-EXIT
-
-:CANCELED
