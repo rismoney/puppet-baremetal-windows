@@ -27,7 +27,7 @@ function build-wim {
   write-output "perform all the extractions to the mount folder"
   unzip-winbits
 
-  mkdir "$mountfolder\tools"
+  mkdir "$mountfolder\tools" -ea silentlycontinue
 
   echo d | xcopy /S /Y "$downloadfolder\ruby-1.8.7-p374-i386-mingw32\*.*" "$mountfolder\Ruby187"
 

@@ -4,10 +4,10 @@ function Unzip7-File {
   [string] $OutputDir = $(throw "OutputDir must be specified.")
   )
 
-  $zipcommand = join-path "C:\Program Files (x86)\7-Zip" "7z.exe"
+  $zipcommand = join-path "$downloadfolder" "7za.exe"
 
   if (!(Test-Path $ZipCommand)) {
-    throw "7z.exe was not found at $ZipCommand."
+    throw "7za.exe was not found at $ZipCommand."
   }
   set-alias zip $ZipCommand
 
