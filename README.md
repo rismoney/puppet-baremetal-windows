@@ -52,7 +52,6 @@ The following will be downloaded and installed automatically via make_pe:
 1. Windows ADK for Windows 8 (I chose this so we are not building around Win7/2008/older revs)
 2. Facter from Source
 3. Puppet from Source
-4. Ruby 1.87 (Puppet on Windows only supports 1.8.7 currently)
 5. Gems - see the list here https://github.com/rismoney/puppet-baremetal-windows/blob/master/make_pe/config/config.ps1#L24-L35
 6. Gnu patch.exe - to workaround the minimalistic nature of the WinPE live image
 

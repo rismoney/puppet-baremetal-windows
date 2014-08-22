@@ -1,6 +1,6 @@
 function unzip-winbits {
 
-  $rubyfolder = join-path $mountfolder "\ruby187"
+  $rubyfolder = join-path $mountfolder "\ruby193"
   $devkitfolder = join-path $mountfolder "\devkit"
   $patchfolder = join-path $mountfolder "\patch"
 

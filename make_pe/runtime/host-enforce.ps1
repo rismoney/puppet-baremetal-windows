@@ -60,7 +60,7 @@ if ($branch) {$options+=" --environment $branch"}
 if ($noop) {$options+=" --noop"}
 if ($tags) {$options+=" --tags ""$tags"""}
 
-$options+=" $server"
+$options+=" --server $server"
 $options
 # apply one branch
 $rc=0

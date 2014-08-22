@@ -13,17 +13,17 @@ $oscdimg = "$adkfolder\Assessment and Deployment Kit\Deployment Tools\x86\Oscdim
 $zipurl= "https://github.com/chocolatey/chocolatey/blob/master/src/tools/7za.exe?raw=true"
 $zipfile = "C:\download\7za.exe"
 
-$rubyurl = "http://dl.bintray.com/oneclick/rubyinstaller/ruby-1.8.7-p374-i386-mingw32.7z?direct"
-$rubyfile = "C:\download\ruby-1.8.7-p374-i386-mingw32.7z"
+$rubyurl = "http://dl.bintray.com/oneclick/rubyinstaller/ruby-1.9.3-p484-i386-mingw32.7z?direct"
+$rubyfile = "C:\download\ruby-1.9.3-p484-i386-mingw32.7z"
 
 $devkit = "https://github.com/downloads/oneclick/rubyinstaller/DevKit-tdm-32-4.5.2-20111229-1559-sfx.exe"
 $devkitfile = "C:\download\DevKit-tdm-32-4.5.2-20111229-1559-sfx.exe"
 
-$facter = "https://github.com/puppetlabs/facter/archive/1.6.x.zip"
-$facterfile = "C:\download\1.6.x.zip"
+$facter = "https://github.com/puppetlabs/facter/archive/2.1.0.zip"
+$facterfile = "C:\download\2.1.0.zip"
 
-$puppeturl = "https://github.com/puppetlabs/puppet/archive/2.7.x.zip"
-$puppetfile = "c:\download\2.7.x.zip"
+$puppeturl = "https://github.com/puppetlabs/puppet/archive/3.6.2.zip"
+$puppetfile = "c:\download\3.6.2.zip"
 
 $dhcptoolurl = "http://files.thecybershadow.net/dhcptest/dhcptest-0.3.exe"
 $dhcptoolfile = "C:\download\dhcptest-0.3.exe"
@@ -34,18 +34,23 @@ $patchfile = "C:\download\patch-2.5.9-7-bin.zip"
 
 $gemlist = (
   #'http://rubygems.org/downloads/bundler-1.3.2.gem',
-  'http://rubygems.org/downloads/sys-admin-1.5.6-x86-mingw32.gem',
-  'http://rubygems.org/downloads/win32-api-1.4.8-x86-mingw32.gem',
-  'http://rubygems.org/downloads/win32-dir-0.3.7.gem',
-  'http://rubygems.org/downloads/win32-eventlog-0.5.3.gem',
-  'http://rubygems.org/downloads/win32-process-0.6.5.gem',
-  'http://rubygems.org/downloads/win32-security-0.1.2.gem',
-  'http://rubygems.org/downloads/win32-service-0.7.2-x86-mingw32.gem',
-  'http://rubygems.org/downloads/win32-taskscheduler-0.2.2.gem',
-  'http://rubygems.org/downloads/win32console-1.3.2-x86-mingw32.gem',
-  'http://rubygems.org/downloads/win32console-1.3.2.gem',
-  'http://rubygems.org/downloads/windows-api-0.4.0.gem',
-  'http://rubygems.org/downloads/windows-pr-1.2.1.gem'
+  'https://rubygems.org/downloads/ffi-1.9.0-x86-mingw32.gem',
+  'https://rubygems.org/downloads/sys-admin-1.5.6-x86-mingw32.gem',
+  'https://rubygems.org/downloads/win32-api-1.4.8-x86-mingw32.gem',
+  'https://rubygems.org/downloads/win32-dir-0.4.8.gem',
+  'https://rubygems.org/downloads/win32-eventlog-0.5.3.gem',
+  'https://rubygems.org/downloads/win32-process-0.6.5.gem',
+  'https://rubygems.org/downloads/win32-security-0.1.4.gem',
+  'https://rubygems.org/downloads/win32-service-0.7.2-x86-mingw32.gem',
+  'https://rubygems.org/downloads/win32-taskscheduler-0.2.2.gem',
+  'https://rubygems.org/downloads/win32console-1.3.2-x86-mingw32.gem',
+  'https://rubygems.org/downloads/win32console-1.3.2.gem',
+  'https://rubygems.org/downloads/windows-api-0.4.2.gem',
+  'https://rubygems.org/downloads/windows-pr-1.2.2.gem',
+  'https://rubygems.org/downloads/minitar-0.5.4.gem',
+  'https://rubygems.org/downloads/json_pure-1.8.1.gem',
+  'https://rubygems.org/downloads/rgen-0.6.5.gem',
+  'https://rubygems.org/downloads/hiera-1.3.4.gem'
   )
 
 #source for adk offline download all files 

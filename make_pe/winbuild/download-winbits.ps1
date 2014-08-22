@@ -59,6 +59,7 @@ function download-winbits {
 
   # install gems
   foreach ($gem in $gemlist) {
+  $gem
     $gemfile = $gem.Substring($gem.LastIndexOf("/") + 1)
     $gemfile = join-path "$downloadfolder\gems" $gemfile
     if (-not(test-path -path "$gemfile")) {

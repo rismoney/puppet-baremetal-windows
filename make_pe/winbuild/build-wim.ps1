@@ -24,12 +24,23 @@ function build-wim {
     exit 1
   }
 
+    write-output "set the scratch space"
+  try {
+    $winpewim_file="$winpefolder\winpe.wim"
+    & $dism /image:$mountfolder /set-scratchspace:128
+	sleep 3
+  }
+  catch {
+    write-output "error setting scratchspace"
+    exit 1
+  }
+  
   write-output "perform all the extractions to the mount folder"
   unzip-winbits
 
   mkdir "$mountfolder\tools" -ea silentlycontinue
 
-  echo d | xcopy /S /Y "$downloadfolder\ruby-1.8.7-p374-i386-mingw32\*.*" "$mountfolder\Ruby187"
+  echo d | xcopy /S /Y "$downloadfolder\ruby-1.9.3-p484-i386-mingw32\*.*" "$mountfolder\Ruby193"
 
   write-output "copy gems file to the mount"
   echo d | xcopy /S /Y "$downloadfolder\gems" "$mountfolder\gems\"
@@ -37,17 +48,17 @@ function build-wim {
   write-output "#copy zip executable"
   echo d | xcopy /S /Y "$downloadfolder\7za.exe" "$mountfolder\tools"
 
-  write-output "drop in the devkit config file with x:\ruby187"
+  write-output "drop in the devkit config file with x:\ruby193"
   echo d | xcopy /Y "$config\config.yml" "$mountfolder\devkit"
 
   write-output "patch puppet source to not use eventlog (n/a in WinPE)"
-  cmd /c "$mountfolder\patch\bin\patch.exe --force -d $mountfolder\puppet-2.7.x\lib\puppet\util\log -p 0 < $patchfolder\destinations.rb.patch"
+  cmd /c "$mountfolder\patch\bin\patch.exe --force -d $mountfolder\puppet-3.6.2\lib\puppet\util\log -p 0 < $patchfolder\destinations.rb.patch"
 
   write-output "patch puppet source to not do volume inspection for ntfs (X:\ is not a traditional volume) so we just say it is"
-  cmd /c "$mountfolder\patch\bin\patch.exe --force -d $mountfolder\puppet-2.7.x\lib\puppet\util\windows -p 0 < $patchfolder\security.rb.patch"
+  cmd /c "$mountfolder\patch\bin\patch.exe --force -d $mountfolder\puppet-3.6.2\lib\puppet\util\windows -p 0 < $patchfolder\security.rb.patch"
 
-  write-output "patch puppet source to not mess with mode on windows"
-  cmd /c "$mountfolder\patch\bin\patch.exe --force -d $mountfolder\puppet-2.7.x\lib\puppet\type\file -p 0 < $patchfolder\source.rb.patch"
+  #write-output "patch puppet source to not mess with mode on windows"
+  #cmd /c "$mountfolder\patch\bin\patch.exe --force -d $mountfolder\puppet-3.6.2\lib\puppet\type\file -p 0 < $patchfolder\source.rb.patch"
 
   
   mkdir "$mountfolder\ProgramData\PuppetLabs\facter\facts.d"

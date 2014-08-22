@@ -1,6 +1,6 @@
 --- destinations.rb.orig	Thu Mar  7 13:06:48 2013
 +++ destinations.rb	Thu Mar  7 13:07:12 2013
-@@ -254,6 +254,6 @@
+@@ -218,6 +218,6 @@
 -    @eventlog.report_event(
 -      :source      => "Puppet",
 -      :event_type  => native_type,

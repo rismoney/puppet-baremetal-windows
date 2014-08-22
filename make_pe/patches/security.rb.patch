@@ -1,6 +1,6 @@
 --- security.rb.orig	2013-02-19 15:32:25 -0500
 +++ security.rb	2013-03-12 12:08:17 -0400
-@@ -153,11 +153,12 @@
+@@ -165,11 +165,12 @@
      root = Pathname.new(path).enum_for(:ascend).to_a.last.to_s
      # 'A trailing backslash is required'
      root = "#{root}\\" unless root =~ /[\/\\]$/
