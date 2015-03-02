@@ -19,7 +19,6 @@ function download-winbits {
     mkdir "$downloadfolder\gems"
   }
 
-  
   #create adk folder if it does not exist
   if (-not(test-path -path "$downloadfolder\adk")) {
     mkdir "$downloadfolder\adk"
@@ -47,6 +46,9 @@ function download-winbits {
   if (-not(test-path -path "$patchfile")) {Get-WebFile $patchurl $patchfile}
   else {write-output "Skipping download $patchfile"}
 
+  if (-not(test-path -path "$curlfile")) {Get-WebFile $curlurl $curlfile}
+  else {write-output "Skipping download $curlfile"}
+  
   if (-not(test-path -path "$facterfile")) {Get-WebFile $facter $facterfile}
   else {write-output "Skipping download $facterfile"}
 
@@ -55,6 +57,9 @@ function download-winbits {
 
   if (-not(test-path -path "$dhcptoolfile")) {Get-WebFile $dhcptoolurl $dhcptoolfile}
   else {write-output "Skipping download $dhcptoolfile"}
+
+  if (-not(test-path -path "$etcdfile")) {Get-WebFile $etcdurl $etcdfile}
+  else {write-output "Skipping download $etcdfile"}
 
 
   # install gems

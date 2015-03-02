@@ -60,7 +60,7 @@ function build-wim {
   #write-output "patch puppet source to not mess with mode on windows"
   #cmd /c "$mountfolder\patch\bin\patch.exe --force -d $mountfolder\puppet-3.6.2\lib\puppet\type\file -p 0 < $patchfolder\source.rb.patch"
 
-  
+
   mkdir "$mountfolder\ProgramData\PuppetLabs\facter\facts.d"
   echo d | xcopy /Y "$config\puppet_installer.txt" "$mountfolder\ProgramData\PuppetLabs\facter\facts.d"
   add-content "$mountfolder\ProgramData\PuppetLabs\facter\facts.d\puppet_installer.txt" "`nfact_stomp_server=$puppetmaster"
@@ -71,11 +71,13 @@ function build-wim {
   echo d |xcopy /Y "$runtimefolder\host-enforce.ps1" "$mountfolder"
   #echo d |xcopy /Y "$runtimefolder\get-DHCPHostname.ps1" "$mountfolder"
   echo d | xcopy /S /Y "$downloadfolder\dhcptest-0.3.exe" "$mountfolder"
-  
-  write-output "#copy zip executable"
-  
-  
-  
+  $puppetmaster | out-file "$mountfolder\puppetmaster.txt"
+
+
+  write-output "modify etcd executable names"
+  mv $mountfolder\etcd-v2.0.4-windows-amd64\etcd $mountfolder\etcd-v2.0.4-windows-amd64\etcd.exe
+  mv $mountfolder\etcd-v2.0.4-windows-amd64\etcdctl $mountfolder\etcd-v2.0.4-windows-amd64\etcdctl.exe
+
   write-output "add get-webfile to winpe"
   echo d |xcopy /Y "$winbuild\Get-WebFile.ps1" "$mountfolder\tools"
   # echo d |xcopy /Y "$config\GemFile" "$mountfolder"
