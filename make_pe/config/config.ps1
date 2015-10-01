@@ -10,7 +10,7 @@ $dism = "$adkfolder\Assessment and Deployment Kit\Deployment Tools\AMD64\DISM\di
 
 $oscdimg = "$adkfolder\Assessment and Deployment Kit\Deployment Tools\x86\Oscdimg\oscdimg.exe"
 
-$zipurl= "https://github.com/chocolatey/chocolatey/blob/master/src/tools/7za.exe?raw=true"
+$zipurl= "https://chocolatey.org/7za.exe"
 $zipfile = "C:\download\7za.exe"
 
 $rubyurl = "http://dl.bintray.com/oneclick/rubyinstaller/ruby-1.9.3-p484-i386-mingw32.7z?direct"
