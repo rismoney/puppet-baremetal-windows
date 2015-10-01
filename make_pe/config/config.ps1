@@ -13,6 +13,9 @@ $oscdimg = "$adkfolder\Assessment and Deployment Kit\Deployment Tools\x86\Oscdim
 $zipurl= "https://chocolatey.org/7za.exe"
 $zipfile = "C:\download\7za.exe"
 
+$curlurl = "http://www.paehl.com/open_source/?download=curl_741_0_ssl.zip"
+$curlfile = "C:\download\curl_741_0_ssl.zip"
+
 $rubyurl = "http://dl.bintray.com/oneclick/rubyinstaller/ruby-1.9.3-p484-i386-mingw32.7z?direct"
 $rubyfile = "C:\download\ruby-1.9.3-p484-i386-mingw32.7z"
 
@@ -28,6 +31,8 @@ $puppetfile = "c:\download\3.6.2.zip"
 $dhcptoolurl = "http://files.thecybershadow.net/dhcptest/dhcptest-0.3.exe"
 $dhcptoolfile = "C:\download\dhcptest-0.3.exe"
 
+$etcdurl = "https://github.com/coreos/etcd/releases/download/v2.0.4/etcd-v2.0.4-windows-amd64.zip"
+$etcdfile = "C:\download\etcd-v2.0.4-windows-amd64.zip"
 
 $patchurl = "http://downloads.sourceforge.net/project/gnuwin32/patch/2.5.9-7/patch-2.5.9-7-bin.zip?r=&ts=1362969672&use_mirror=voxel"
 $patchfile = "C:\download\patch-2.5.9-7-bin.zip"

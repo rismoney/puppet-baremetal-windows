@@ -1,8 +1,8 @@
 #disable all nics except "Ethernet"  or Port 1 windows 2012 is deterministic...
 # this is done to ensure the primary adapter ties back to the DHCP reservatoin
 
-$disconnected_adapters = gwmi -class win32_networkadapter |where-object  {$_.netconnectionstatus -eq '7'} 
-$nonprimary_adapters   = gwmi -class win32_networkadapter |where-object  {((($_.NetConnectionID -notmatch "Port 1") -and ($_.NetConnectionID -ne "Ethernet")) -and ($_.netenabled -eq $true))} 
+$disconnected_adapters = gwmi -class win32_networkadapter |where-object  {$_.netconnectionstatus -eq '7'}
+$nonprimary_adapters   = gwmi -class win32_networkadapter |where-object  {((($_.NetConnectionID -notmatch "Port 1") -and ($_.NetConnectionID -ne "Ethernet")) -and ($_.netenabled -eq $true))}
 write-host "The following are disconnected adapters:"
 $disconnected_adapters  | select netconnectionid
 write-host "The following are non primary adapters:"
@@ -26,11 +26,12 @@ $env:FACTER_env_windows_installdir="X:\puppet-2.7.x"
 $env:ise_kickstarting="yes"
 
 
+
 # we will pause for 5 seconds waiting for user input.  If a key is pressed we will allow the user
 # to manually type a branch name.  If no branch is provided, we will be using production.
 
 #start of branch selection routine
-$timer = 600
+$timer = 60
 $i = 1
 
 Do {
@@ -53,8 +54,16 @@ $i++
 if (!$branch) {$branch = "production"}
 # end of branch selection routine
 
+$puppetmaster = Get-Content X:\puppetmaster.txt
+
+# Attempt to revoke and delete existing Puppet cert
+"NOTICE: Attempting to revoke puppet cert for ${fqdn}"
+cmd /c c:\curl\curl.exe -k -H "Content-Type: text/pson" -X PUT "https://$puppetmaster/production/certificate_status/${fqdn}" --data '{"""desired_state""":"""revoked"""}'
+"NOTICE: Attempting to delete puppet cert for ${fqdn}"
+cmd /c c:\curl\curl.exe -k -X DELETE -H "Accept: pson" "https://$puppetmaster:8140/production/certificate_status/${fqdn}"
+
 # call host-enforce against our 3 relevant modules.  host-enforce is a puppet agent run
-X:\host-enforce.ps1 -b $branch -tags "winbuild, choco, ringo, firmware" -disableeventlog true
+X:\host-enforce.ps1 -b $branch -tags "winbuild, choco, ringo, firmware" -disableeventlog true -certname $hostname
 
 # call out post puppet script (this is empty in this repo- but we deploy a replacement file to do more needful ops)
 X:\post-puppet.ps1
