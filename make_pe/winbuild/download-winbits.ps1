@@ -35,9 +35,12 @@ function download-winbits {
   }
 
 
-  if (-not(test-path -path "$zipfile")) {Get-WebFile $zipurl $zipfile}
-  else {write-output "Skipping download $zipfile"}
+  if (-not(test-path -path "$zip1file")) {Get-WebFile $zip1url $zip1file}
+  else {write-output "Skipping download $zip1file"}
 
+  if (-not(test-path -path "$zip2file")) {Get-WebFile $zip2url $zip2file}
+  else {write-output "Skipping download $zip2file"}
+  
   if (-not(test-path -path "$rubyfile")) {Get-WebFile $rubyurl $rubyfile}
   else {write-output "Skipping download $rubyfile"}
 

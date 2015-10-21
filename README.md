@@ -22,7 +22,7 @@ Edit puppetmaster in host-enforce.ps1 L55 (I am using my production puppet agent
 Edit runtime\custom.ps1 [1]
 
 Put oem PE drivers in $driverfolder - default C:\PEDrivers [2]
-
+Note use the drivers for 2012, not 2012r2 for this adk is 6.2.9200
 
 ## Status
 This is now operational.  Puppet executes properly under Windows PE with this build

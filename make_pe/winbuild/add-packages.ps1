@@ -1,6 +1,6 @@
 function add-packages {
   # don't know what going to happen at the prom so we will be prepared.
-  cd "$adkfolder\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\WinPE_OCs"
+  pushd "$adkfolder\Assessment and Deployment Kit\Windows Preinstallation Environment\$bitversion\WinPE_OCs"
 #  & $dism /image:$mountfolder /add-package /packagepath:"WinPE-Scripting.cab"
 #  & $dism /image:$mountfolder /add-package /packagepath:"en-us\WinPE-Scripting_en-us.cab"
   & $dism /image:$mountfolder /add-package /packagepath:"WinPE-WMI.cab"
@@ -15,4 +15,5 @@ function add-packages {
   & $dism /image:$mountfolder /add-package /packagepath:"en-us\WinPE-PowerShell3_en-us.cab"
   & $dism /image:$mountfolder /add-package /packagepath:"WinPE-DismCmdlets.cab"
   & $dism /image:$mountfolder /add-package /packagepath:"en-us\WinPE-DismCmdlets_en-us.cab"
+  popd
 }

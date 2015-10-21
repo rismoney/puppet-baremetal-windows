@@ -11,7 +11,7 @@ function build-wim {
   }
 
   write-output "copy winpe wim to our working folder"
-  $winpewim = "$adkfolder\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\en-us\winpe.wim"
+  $winpewim = "$adkfolder\Assessment and Deployment Kit\Windows Preinstallation Environment\$bitversion\en-us\winpe.wim"
   copy $winpewim $winpefolder
 
   write-output "mount the wim"
@@ -40,22 +40,23 @@ function build-wim {
 
   mkdir "$mountfolder\tools" -ea silentlycontinue
 
-  echo d | xcopy /S /Y "$downloadfolder\ruby-1.9.3-p484-i386-mingw32\*.*" "$mountfolder\Ruby193"
+  echo d | xcopy /S /Y "$downloadfolder\ruby-2.0.0-p645-x64-mingw32\*.*" "$mountfolder\Ruby200"
 
   write-output "copy gems file to the mount"
   echo d | xcopy /S /Y "$downloadfolder\gems" "$mountfolder\gems\"
 
-  write-output "#copy zip executable"
-  echo d | xcopy /S /Y "$downloadfolder\7za.exe" "$mountfolder\tools"
+  write-output "#copy zip executable and dll"
+  echo d | xcopy /S /Y "$downloadfolder\7z.exe" "$mountfolder\tools"
+  echo d | xcopy /S /Y "$downloadfolder\7z.dll" "$mountfolder\tools"
 
-  write-output "drop in the devkit config file with x:\ruby193"
+  write-output "drop in the devkit config file with x:\ruby200"
   echo d | xcopy /Y "$config\config.yml" "$mountfolder\devkit"
 
   write-output "patch puppet source to not use eventlog (n/a in WinPE)"
-  cmd /c "$mountfolder\patch\bin\patch.exe --force -d $mountfolder\puppet-3.6.2\lib\puppet\util\log -p 0 < $patchfolder\destinations.rb.patch"
+  cmd /c "$mountfolder\patch\bin\patch.exe --force -d $mountfolder\puppet-3.8.3\lib\puppet\util\log -p 0 < $patchfolder\destinations.rb.patch"
 
   write-output "patch puppet source to not do volume inspection for ntfs (X:\ is not a traditional volume) so we just say it is"
-  cmd /c "$mountfolder\patch\bin\patch.exe --force -d $mountfolder\puppet-3.6.2\lib\puppet\util\windows -p 0 < $patchfolder\security.rb.patch"
+  #cmd /c "$mountfolder\patch\bin\patch.exe --force -d $mountfolder\puppet-3.6.2\lib\puppet\util\windows -p 0 < $patchfolder\security.rb.patch"
 
   #write-output "patch puppet source to not mess with mode on windows"
   #cmd /c "$mountfolder\patch\bin\patch.exe --force -d $mountfolder\puppet-3.6.2\lib\puppet\type\file -p 0 < $patchfolder\source.rb.patch"
@@ -70,7 +71,7 @@ function build-wim {
   echo d |xcopy /Y "$runtimefolder\custom.ps1" "$mountfolder"
   echo d |xcopy /Y "$runtimefolder\host-enforce.ps1" "$mountfolder"
   #echo d |xcopy /Y "$runtimefolder\get-DHCPHostname.ps1" "$mountfolder"
-  echo d | xcopy /S /Y "$downloadfolder\dhcptest-0.3.exe" "$mountfolder"
+  echo d | xcopy /S /Y "$downloadfolder\dhcptest-0.5-win64.exe" "$mountfolder"
   
   write-output "#copy zip executable"
   

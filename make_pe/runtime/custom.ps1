@@ -15,14 +15,14 @@ $nonprimary_adapters | foreach {$_.disable()}
 $macaddress = ((gwmi win32_networkadapter) | ? {($_.NetEnabled -eq $true) -and ($_.AdapterTypeID -eq 0)}).macaddress
 write-host -Foregroundcolor magenta "Primary Mac Address: $macaddress"
 
-$hostname = X:\dhcptest-0.3.exe --mac $macaddress --request 12 --query --print-only 12 --quiet
+$hostname = X:\dhcptest-0.5-win64.exe --mac $macaddress --request 12 --query --print-only 12 --quiet
 write-host  -Foregroundcolor magenta  "Hostname obtained via dhcp option 12: $hostname"
 write-host "if the hostname is not correct please abort"
 
 # set an environment variables.  The ise_mock_fqdn and ise_kickstarting tie back to facter facts
 # ise_mock_fqdn overcomes the issue where Windows PE typically boots with a name like MINI-NT######
 $env:ise_mock_fqdn = $hostname
-$env:FACTER_env_windows_installdir="X:\puppet-2.7.x"
+$env:FACTER_env_windows_installdir="X:\puppet-3.8.3"
 $env:ise_kickstarting="yes"
 
 

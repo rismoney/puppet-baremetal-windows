@@ -1,32 +1,36 @@
 ﻿$downloadfolder="C:\download"
 $mountfolder="C:\mount"
-$winpefolder="C:\WinPE_x86"
 $driverfolder="C:\PEdrivers"
 $adkfolder = 'C:\Program Files (x86)\Windows Kits\8.0'
 $puppetmaster = 'puppet.inf.ise.com'
+$bitversion = "amd64"
+$winpefolder="C:\WinPE_$bitversion"
 
-$imagex = "$adkfolder\Assessment and Deployment Kit\Deployment Tools\AMD64\DISM\imagex.exe"
-$dism = "$adkfolder\Assessment and Deployment Kit\Deployment Tools\AMD64\DISM\dism.exe"
+$imagex = "$adkfolder\Assessment and Deployment Kit\Deployment Tools\$bitversion\DISM\imagex.exe"
+$dism = "$adkfolder\Assessment and Deployment Kit\Deployment Tools\$bitversion\DISM\dism.exe"
 
-$oscdimg = "$adkfolder\Assessment and Deployment Kit\Deployment Tools\x86\Oscdimg\oscdimg.exe"
+$oscdimg = "$adkfolder\Assessment and Deployment Kit\Deployment Tools\$bitversion\Oscdimg\oscdimg.exe"
 
-$zipurl= "https://chocolatey.org/7za.exe"
-$zipfile = "C:\download\7za.exe"
+$zip1url= "https://s3-us-west-2.amazonaws.com/s3-2015-10-com-ise-pub/winpe/7z.exe"
+$zip1file = "C:\download\7z.exe"
+$zip2url= "https://s3-us-west-2.amazonaws.com/s3-2015-10-com-ise-pub/winpe/7z.dll"
+$zip2file = "C:\download\7z.dll"
 
-$rubyurl = "http://dl.bintray.com/oneclick/rubyinstaller/ruby-1.9.3-p484-i386-mingw32.7z?direct"
-$rubyfile = "C:\download\ruby-1.9.3-p484-i386-mingw32.7z"
 
-$devkit = "https://github.com/downloads/oneclick/rubyinstaller/DevKit-tdm-32-4.5.2-20111229-1559-sfx.exe"
-$devkitfile = "C:\download\DevKit-tdm-32-4.5.2-20111229-1559-sfx.exe"
+$rubyurl = "http://dl.bintray.com/oneclick/rubyinstaller/ruby-2.0.0-p645-x64-mingw32.7z?direct"
+$rubyfile = "C:\download\ruby-2.0.0-p645-x64-mingw32.7z"
 
-$facter = "https://github.com/puppetlabs/facter/archive/2.1.0.zip"
-$facterfile = "C:\download\2.1.0.zip"
+$devkit = "http://dl.bintray.com/oneclick/rubyinstaller/DevKit-mingw64-64-4.7.2-20130224-1432-sfx.exe"
+$devkitfile = "C:\download\DevKit-mingw64-64-4.7.2-20130224-1432-sfx.exe"
 
-$puppeturl = "https://github.com/puppetlabs/puppet/archive/3.6.2.zip"
-$puppetfile = "c:\download\3.6.2.zip"
+$facter = "https://github.com/puppetlabs/facter/archive/2.4.4.zip"
+$facterfile = "C:\download\2.4.4.zip"
 
-$dhcptoolurl = "http://files.thecybershadow.net/dhcptest/dhcptest-0.3.exe"
-$dhcptoolfile = "C:\download\dhcptest-0.3.exe"
+$puppeturl = "https://github.com/puppetlabs/puppet/archive/3.8.3.zip"
+$puppetfile = "c:\download\3.8.3.zip"
+
+$dhcptoolurl = "http://files.thecybershadow.net/dhcptest/dhcptest-0.5-win64.exe"
+$dhcptoolfile = "C:\download\dhcptest-0.5-win64.exe"
 
 
 $patchurl = "http://downloads.sourceforge.net/project/gnuwin32/patch/2.5.9-7/patch-2.5.9-7-bin.zip?r=&ts=1362969672&use_mirror=voxel"
@@ -34,22 +38,22 @@ $patchfile = "C:\download\patch-2.5.9-7-bin.zip"
 
 $gemlist = (
   #'http://rubygems.org/downloads/bundler-1.3.2.gem',
-  'https://rubygems.org/downloads/ffi-1.9.0-x86-mingw32.gem',
-  'https://rubygems.org/downloads/sys-admin-1.5.6-x86-mingw32.gem',
-  'https://rubygems.org/downloads/win32-api-1.4.8-x86-mingw32.gem',
-  'https://rubygems.org/downloads/win32-dir-0.4.8.gem',
-  'https://rubygems.org/downloads/win32-eventlog-0.5.3.gem',
-  'https://rubygems.org/downloads/win32-process-0.6.5.gem',
-  'https://rubygems.org/downloads/win32-security-0.1.4.gem',
-  'https://rubygems.org/downloads/win32-service-0.7.2-x86-mingw32.gem',
-  'https://rubygems.org/downloads/win32-taskscheduler-0.2.2.gem',
-  'https://rubygems.org/downloads/win32console-1.3.2-x86-mingw32.gem',
-  'https://rubygems.org/downloads/win32console-1.3.2.gem',
-  'https://rubygems.org/downloads/windows-api-0.4.2.gem',
-  'https://rubygems.org/downloads/windows-pr-1.2.2.gem',
+  'https://rubygems.org/downloads/ffi-1.9.5-x64-mingw32.gem',
+  #'https://rubygems.org/downloads/sys-admin-1.5.6-x86-mingw32.gem',
+  #'https://rubygems.org/downloads/win32-api-1.4.8-x86-mingw32.gem',
+  'https://rubygems.org/downloads/win32-dir-0.4.9.gem',
+  'https://rubygems.org/downloads/win32-eventlog-0.6.2.gem',
+  'https://rubygems.org/downloads/win32-process-0.7.4.gem',
+  'https://rubygems.org/downloads/win32-security-0.2.5.gem',
+  'https://rubygems.org/downloads/win32-service-0.8.6.gem',
+  #'https://rubygems.org/downloads/win32-taskscheduler-0.2.2.gem',
+  #'https://rubygems.org/downloads/win32console-1.3.2-x86-mingw32.gem',
+  #'https://rubygems.org/downloads/win32console-1.3.2.gem',
+  #'https://rubygems.org/downloads/windows-api-0.4.2.gem',
+  #'https://rubygems.org/downloads/windows-pr-1.2.2.gem',
   'https://rubygems.org/downloads/minitar-0.5.4.gem',
-  'https://rubygems.org/downloads/json_pure-1.8.1.gem',
-  'https://rubygems.org/downloads/rgen-0.6.5.gem',
+  'https://rubygems.org/downloads/json_pure-1.8.2.gem',
+  #'https://rubygems.org/downloads/rgen-0.6.5.gem',
   'https://rubygems.org/downloads/hiera-1.3.4.gem'
   )
 
