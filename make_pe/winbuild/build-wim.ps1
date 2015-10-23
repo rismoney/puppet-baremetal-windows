@@ -62,7 +62,7 @@ function build-wim {
   #cmd /c "$mountfolder\patch\bin\patch.exe --force -d $mountfolder\puppet-3.6.2\lib\puppet\type\file -p 0 < $patchfolder\source.rb.patch"
 
   
-  mkdir "$mountfolder\ProgramData\PuppetLabs\facter\facts.d"
+  #mkdir  "$mountfolder\ProgramData\PuppetLabs\facter\facts.d"
   echo d | xcopy /Y "$config\puppet_installer.txt" "$mountfolder\ProgramData\PuppetLabs\facter\facts.d"
   add-content "$mountfolder\ProgramData\PuppetLabs\facter\facts.d\puppet_installer.txt" "`nfact_stomp_server=$puppetmaster"
 

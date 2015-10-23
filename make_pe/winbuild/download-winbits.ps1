@@ -25,11 +25,19 @@ function download-winbits {
     mkdir "$downloadfolder\adk"
   }
 
-  foreach ($url in $adklist) {
-    $adkname = $url.Substring($url.LastIndexOf("/") + 1)
-    $adkname = join-path "$downloadfolder\adk" $adkname
-    if (-not(test-path -path "$adkname")) {
-      Get-WebFile $url $adkname
+  if (-not(test-path -path "$downloadfolder\adk\$adksetup")) {
+    Get-WebFile "$adkMainURL$adksetup" "$downloadfolder\adk\$adksetup"
+  }
+
+  
+  foreach ($h in $adklist.GetEnumerator()) {
+    $adkname = $h.Value
+    write-output "processing: $adkname"
+    $adkfile = join-path "$downloadfolder\adk" $adkname
+    if (-not(test-path -path "$adkfile")) {
+      $adkurl = "$adkMainURL" + "Installers/" + $adkname
+      write-output "getting: $adkurl"
+      Get-WebFile $adkurl $adkfile
     }
     else {write-output "Skipping download $adkname"}
   }
